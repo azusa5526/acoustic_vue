@@ -1,7 +1,11 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import Index from '../views/Index.vue';
+import Index from '../views/Index';
+import Products from '../views/Products';
+import News from '../views/News';
+import Appointment from '../views/Appointment';
+import SingleProduct from '../views/SingleProduct';
 
 Vue.use(VueRouter);
 
@@ -12,12 +16,24 @@ const routes = [
     component: Index
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/products',
+    name: 'Products',
+    component: Products
+  },
+  {
+    path: '/news',
+    name: 'News',
+    component: News
+  },
+  {
+    path: '/appointment',
+    name: 'Appointment',
+    component: Appointment
+  },
+  {
+    path: '/singleProduct',
+    name: 'SingleProduct',
+    component: SingleProduct
   }
 ];
 

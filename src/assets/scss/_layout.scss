@@ -1,7 +1,7 @@
 h1 {
   font-size: 0;
   a {
-    // @include hideText(130px, auto, "../img/logo_sm.png", "../img/logo_sm.png");
+    @include hideText(130px, auto, '~@/assets/img/logo_sm.png', '~@/assets/img/logo_sm.png');
   }
 }
 
@@ -31,42 +31,28 @@ h1 {
 
 //dynamic
 .whiteIcon {
-  // @include hideText(
-  //   130px,
-  //   auto,
-  //   "../img/logo_sm_white.png",
-  //   "../img/logo_sm_white.png"
-  // );
+  @include hideText(
+    130px,
+    auto,
+    '~@/assets/img/logo_sm_white.png',
+    '~@/assets/img/logo_sm_white.png'
+  );
 }
 .blackIcon {
-  // @include hideText(130px, auto, "../img/logo_sm.png", "../img/logo_sm.png");
+   @include hideText(130px, auto, "~@/assets/img/logo_sm.png", "~@/assets/img/logo_sm.png");
 }
+
 .shadowBottom {
   box-shadow: 0px 0px 8px 0px $gray-600;
 }
 
-//footer place bottom
-html,
-body {
+
+html, body {
   height: 100%;
-  margin: 0;
-  padding: 0;
-}
-.content {
-  box-sizing: border-box;
-  min-height: calc(100% - 56px);
-  padding-bottom: 67.22px;
-
-  @include media-breakpoint-up(sm) {
-    min-height: calc(100% - 64px);
-  }
-
-  @include media-breakpoint-up(md) {
-    min-height: calc(100% - 72px);
-  }
 }
 
-.footer {
-  height: 67.22px;
-  margin-top: -67.22px;
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
