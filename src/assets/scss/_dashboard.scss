@@ -1,0 +1,21 @@
+.sidebar {
+  @include media-breakpoint-up(md) {
+    flex: 0 0 180px; //or become icons
+  }
+  @include media-breakpoint-up(lg) {
+    flex: 0 0 220px;
+  }
+  @include media-breakpoint-up(xl) {
+    flex: 0 0 270px;
+  }
+
+  .nav-link.active {
+    background-color: $white; 
+    color: $primary !important;
+    transition: .5s;
+  }
+}
+
+.main {
+  flex: 1;
+}

@@ -1,9 +1,18 @@
 <template>
   <div class="header">
     <nav class="navbar navbar-expand-md navbar-light bg-white shadowBottom">
-      <h1 class="mb-0 ml-sm-6 mr-10 py-3 py-sm-4 py-md-5"><a class="navbar-brand p-0" href="index.html">acoustic</a></h1>
-      <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbarToggler"
-        aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+      <h1 class="mb-0 ml-sm-6 mr-10 py-3 py-sm-4 py-md-5">
+        <router-link class="navbar-brand p-0" to="/">acoustic</router-link>
+      </h1>
+      <button
+        class="navbar-toggler border-0"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarToggler"
+        aria-controls="navbarToggler"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
         <i class="fas fa-bars text-primary"></i>
       </button>
 
@@ -25,8 +34,12 @@
       </div>
 
       <ul class="icon d-none d-md-flex navbar-nav mr-5">
-        <li class="nav-item"><a href="#"><i class="far fa-user-circle"></i></a></li>
-        <li class="nav-item pl-6"><a href="#"><i class="fas fa-search"></i></a></li>
+        <li class="nav-item">
+          <router-link to="/login"><i class="far fa-user-circle"></i></router-link>
+        </li>
+        <li class="nav-item pl-6">
+          <a href="#"><i class="fas fa-search"></i></a>
+        </li>
       </ul>
     </nav>
   </div>
