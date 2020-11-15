@@ -1,15 +1,15 @@
 .sidebar {
   @include media-breakpoint-up(md) {
-    flex: 0 0 180px; //or become icons
+    flex: 0 0 170px; //or become icons
   }
   @include media-breakpoint-up(lg) {
-    flex: 0 0 220px;
+    flex: 0 0 210px;
   }
   @include media-breakpoint-up(xl) {
-    flex: 0 0 270px;
+    flex: 0 0 260px;
   }
 
-  .nav-link.active {
+  .nav-link.router-link-active {
     background-color: $white; 
     color: $primary !important;
     transition: .5s;

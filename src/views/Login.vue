@@ -71,7 +71,9 @@ export default {
           const token = response.data.token;
           const expired = response.data.expired;
           document.cookie = `hexToken=${token}; expires=${new Date(expired)};`;
-          vm.$router.push('/dashboard');
+          vm.$router.push('/dashboard/products');
+        } else {
+          console.log('login fail', response.data.message);
         }
       });
     }

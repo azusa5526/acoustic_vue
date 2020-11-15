@@ -95,7 +95,7 @@ export default {
   },
 
   created() {
-    console.log('nav created');
+    // console.log('nav created');
   },
 
   mounted() {
@@ -103,7 +103,7 @@ export default {
   },
 
   destroyed() {
-    console.log('nav distroyed');
+    // console.log('nav distroyed');
     window.removeEventListener('scroll', this.handleScroll);
   }
 };
