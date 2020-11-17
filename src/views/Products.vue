@@ -10,16 +10,16 @@
           <div class="sideFilter col-md-3">
             <ul class="nav nav-pills flex-column text-center">
               <li class="nav-item mb-4">
-                <a class="nav-link border active" href="#">所有產品</a>
+                <a class="nav-link border" @click.prevent="filterProducts(); filterTag = ''" :class="{'active' : filterTag == ''}" href="#">所有產品</a>
               </li>
               <li class="nav-item mb-4">
-                <a class="nav-link border" href="#">書架型</a>
+                <a class="nav-link border" @click.prevent="filterProducts('書架型'); filterTag = '書架型'" :class="{'active' : filterTag == '書架型'}" href="#">書架型</a>
               </li>
               <li class="nav-item mb-4">
-                <a class="nav-link border" href="#">落地型</a>
+                <a class="nav-link border" @click.prevent="filterProducts('落地型'); filterTag = '落地型'" :class="{'active' : filterTag == '落地型'}" href="#">落地型</a>
               </li>
               <li class="nav-item mb-4">
-                <a class="nav-link border" href="#">家庭劇院</a>
+                <a class="nav-link border" @click.prevent="filterProducts('家庭劇院'); filterTag = '家庭劇院'" :class="{'active' : filterTag == '家庭劇院'}" href="#">家庭劇院</a>
               </li>
               <li class="nav-item mb-4">
                 <a class="nav-link border" href="#">價格</a>
@@ -50,86 +50,22 @@
                 </div>
               </div>
 
-              <div class="cardHover--scale col-sm-6 col-xl-4 mb-6">
-                <a href="singleProduct.html">
+              <div
+                class="cardHover--scale col-sm-6 col-xl-4 mb-6"
+                v-for="item in filteredProducts"
+                :key="item.id"
+              >
+                <a href="#" @click="getSingleProduct(item.id)">
                   <div class="card">
                     <div class="card-img-top">
-                      <img src="../assets/img/product_1_1.jpg" alt="" />
+                      <img :src="item.imageUrl" alt="" />
                     </div>
                     <div class="card-body card-body-200">
                       <p>2020.09.05 發售</p>
-                      <h6>書架型</h6>
-                      <h5 class="rowLimit-1">AIRPULSE A80</h5>
+                      <h6>{{ item.category }}</h6>
+                      <h5 class="rowLimit-1">{{ item.title }}</h5>
                       <p class="rowLimit-2">
-                        獨特的號角負載鋁帶高音，4.5吋鋁質振膜低失真中低音單體，為聲音提供有力保證。
-                      </p>
-                    </div>
-                  </div>
-                </a>
-              </div>
-              <div class="cardHover--scale col-sm-6 col-xl-4 mb-6">
-                <a href="#">
-                  <div class="card">
-                    <div class="card-img-top">
-                      <img src="../assets/img/product_2_1.jpg" alt="" />
-                    </div>
-                    <div class="card-body card-body-200">
-                      <p>2020.09.05 發售</p>
-                      <h6>家庭劇院</h6>
-                      <h5 class="rowLimit-1">E255</h5>
-                      <p class="rowLimit-2">衛星通道獨立功放+DSP分頻系統，打造爆棚音效。</p>
-                    </div>
-                  </div>
-                </a>
-              </div>
-              <div class="cardHover--scale col-sm-6 col-xl-4 mb-6">
-                <a href="#">
-                  <div class="card">
-                    <div class="card-img-top">
-                      <img src="../assets/img/product_3_1.jpg" alt="" />
-                    </div>
-                    <div class="card-body card-body-200">
-                      <p>2020.09.05 發售</p>
-                      <h6>落地型</h6>
-                      <h5 class="rowLimit-1">603 S2 Anniversary</h5>
-                      <p class="rowLimit-2">
-                        精緻為一體的立式音箱，採用經優化的分頻器，以實現更加清澈的音質，其裝飾環造型獨特，彰顯非凡品質。
-                      </p>
-                    </div>
-                  </div>
-                </a>
-              </div>
-              <div class="cardHover--scale col-sm-6 col-xl-4 mb-6">
-                <a href="#">
-                  <div class="card">
-                    <div class="card-img-top">
-                      <img src="../assets/img/product_4_1.png" alt="" />
-                    </div>
-                    <div class="card-body card-body-200">
-                      <p>2020.09.05 發售</p>
-                      <h6>書架型</h6>
-                      <h5 class="rowLimit-1">LS50 WIRELESS II</h5>
-                      <p class="rowLimit-2">
-                        擁有卓越的音質表現，更是一組功能齊全的一體式音響系統。透過
-                        AirPlay2、Chromecast 等無線連接功能，能輕鬆與家裡的各種音源串流播放。
-                      </p>
-                    </div>
-                  </div>
-                </a>
-              </div>
-              <div class="cardHover--scale col-sm-6 col-xl-4 mb-6">
-                <a href="#">
-                  <div class="card">
-                    <div class="card-img-top">
-                      <img src="../assets/img/product_5_1.png" alt="" />
-                    </div>
-                    <div class="card-body card-body-200">
-                      <p>2020.09.05 發售</p>
-                      <h6>落地型</h6>
-                      <h5 class="rowLimit-1">Q750 FLOORSTANDING</h5>
-                      <p class="rowLimit-2">
-                        搭載 Uni-Q 同軸共點中高音單元、一組低音單元和兩組低音輔助擴散器，Q750
-                        專為創造全方位音樂享受而設。
+                        {{ item.description }}
                       </p>
                     </div>
                   </div>
@@ -165,12 +101,52 @@
 <script>
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'Products',
   components: {
     Navbar,
     Footer
+  },
+
+  data() {
+    return {
+      products: [],
+      filterTag: ''
+    };
+  },
+
+  methods: {
+    ...mapActions(['getAllProducts']),
+
+    getSingleProduct(id) {
+      const vm = this;
+      const api = `${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/product/${id}`;
+      vm.$store.dispatch('updateLoading', true);
+
+      vm.$http.get(api).then((response) => {
+        if (response.data.success) {
+          vm.$store.dispatch('updateLoading', false);
+          vm.$router.push(`/products/${response.data.product.id}`);
+        } else {
+          vm.$store.dispatch('updateLoading', false);
+          console.log('取得單一產品失敗');
+        }
+      });
+    },
+
+    filterProducts(filter) {
+      this.$store.commit('FILTEREDPRODUCTS', filter);
+    }
+  },
+
+  computed: {
+    ...mapGetters(['allProducts', 'filteredProducts'])
+  },
+
+  created() {
+    this.getAllProducts();
   }
 };
 </script>

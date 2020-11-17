@@ -32,6 +32,11 @@ const routes = [
     component: Products
   },
   {
+    path: '/products/:productID',
+    name: 'SingleProduct',
+    component: SingleProduct
+  },
+  {
     path: '/news',
     name: 'News',
     component: News
@@ -40,11 +45,6 @@ const routes = [
     path: '/appointment',
     name: 'Appointment',
     component: Appointment
-  },
-  {
-    path: '/singleProduct',
-    name: 'SingleProduct',
-    component: SingleProduct
   },
   {
     path: '/login',

@@ -1,40 +1,45 @@
 <template>
-  <div class="dashboardProducts mx-5 my-10">
+  <div class="dashboardProducts mh-100 mx-5 py-5">
     <div class="d-flex align-items-center bg-white mb-3 py-4 px-6">
       <label class="mb-0 mr-4" for="search">搜尋產品</label>
       <input type="text" class="form-control w-50" id="search" placeholder="產品名稱" />
-      <button class="btn btn-primary ml-auto px-10" @click="openProductModal(true)">
+      <button class="btn btn-primary ml-auto px-2 px-md-4 px-lg-10" @click="openProductModal(true)">
         新增產品
       </button>
     </div>
-    <table class="table bg-white">
-      <thead>
-        <tr>
-          <td>類別</td>
-          <td>名稱</td>
-          <td>進價</td>
-          <td>售價</td>
-          <td>啟用</td>
-          <td>編輯</td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="item in products" :key="item.id">
-          <td>{{ item.category }}</td>
-          <td>{{ item.title }}</td>
-          <td>{{ item.origin_price }}</td>
-          <td>{{ item.price }}</td>
-          <td>
-            <span class="text-success" v-if="item.is_enabled">ENABLE</span>
-            <span class="text-danger" v-else>DISABLE</span>
-          </td>
-          <td>
-            <button class="btn btn-primary" @click="openProductModal(false, item)">編輯</button>
-            <button class="btn btn-danger"  @click="openDelProductModal(item)">刪除</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div>
+      <table class="table test bg-white">
+        <thead>
+          <tr class="bg-white">
+            <th>類別</th>
+            <th>名稱</th>
+            <th>原價</th>
+            <th>售價</th>
+            <th>啟用</th>
+            <th>編輯</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in products" :key="item.id">
+            <td>{{ item.category }}</td>
+            <td>{{ item.title }}</td>
+            <td>{{ item.origin_price | currency }}</td>
+            <td>{{ item.price | currency }}</td>
+            <td>
+              <span class="text-success" v-if="item.is_enabled">ENABLE</span>
+              <span class="text-danger" v-else>DISABLE</span>
+            </td>
+            <td>
+              <button class="btn btn-sm btn-primary" @click="openProductModal(false, item)">
+                編輯
+              </button>
+              <button class="btn btn-sm btn-danger" @click="openDelProductModal(item)">刪除</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <Pagination :pagination="pagination" @changePage="getProducts"></Pagination>
+    </div>
 
     <div
       aria-hidden="true"
@@ -48,7 +53,7 @@
         <div class="modal-content border-0">
           <div class="modal-header bg-primary text-white">
             <h5 class="modal-title" id="exampleModalLabel">
-              <span>新增產品</span>
+              <span>編輯產品</span>
             </h5>
             <button aria-label="Close" class="close" data-dismiss="modal" type="button">
               <span aria-hidden="true">&times;</span>
@@ -70,7 +75,7 @@
                 <div class="form-group">
                   <label for="customFile">
                     新增圖片
-                    <i class="fas fa-circle-notch fa-spin"></i>
+                    <i class="fas fa-circle-notch fa-spin" v-if="status.fileUploading"></i>
                   </label>
                   <input
                     class="form-control"
@@ -119,11 +124,11 @@
 
                 <div class="form-row">
                   <div class="form-group col-md-6">
-                    <label for="origin_price">進價</label>
+                    <label for="origin_price">原價</label>
                     <input
                       class="form-control"
                       id="origin_price"
-                      placeholder="輸入進價"
+                      placeholder="輸入原價"
                       type="number"
                       v-model="tempProduct.origin_price"
                     />
@@ -139,18 +144,6 @@
                     />
                   </div>
                 </div>
-
-                <div class="form-group">
-                  <label for="content">產品內容</label>
-                  <textarea
-                    class="form-control"
-                    id="content"
-                    placeholder="輸入產品內容"
-                    rows="4"
-                    type="text"
-                    v-model="tempProduct.content"
-                  ></textarea>
-                </div>
                 <div class="form-group">
                   <label for="description">產品描述</label>
                   <textarea
@@ -160,6 +153,17 @@
                     rows="4"
                     type="text"
                     v-model="tempProduct.description"
+                  ></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="content">產品內容</label>
+                  <textarea
+                    class="form-control"
+                    id="content"
+                    placeholder="輸入產品內容"
+                    rows="4"
+                    type="text"
+                    v-model="tempProduct.content"
                   ></textarea>
                 </div>
                 <div class="form-group">
@@ -181,7 +185,7 @@
           <div class="modal-footer">
             <button class="btn btn-secondary" data-dismiss="modal" type="button">取消</button>
             <button class="btn btn-primary" type="button" @click="uploadProduct">
-              <i class="fas fa-circle-notch fa-spin"></i> 修改
+              <i class="fas fa-circle-notch fa-spin" v-if="status.itemUploading"></i> 修改
             </button>
           </div>
         </div>
@@ -211,10 +215,10 @@
             <strong class="text-danger">{{ tempProduct.title }}</strong> ( 產品一旦刪除將無法恢復 )
           </div>
           <div class="modal-footer">
-            <button @click="deleteProduct" class="btn btn-danger" type="button">刪除</button>
-            <button class="btn btn-primary" data-dismiss="modal" type="button">
-              取消
+            <button @click="deleteProduct" class="btn btn-danger" type="button">
+              <i class="fas fa-circle-notch fa-spin" v-if="status.itemUploading"></i> 刪除
             </button>
+            <button class="btn btn-primary" data-dismiss="modal" type="button">取消</button>
           </div>
         </div>
       </div>
@@ -224,31 +228,42 @@
 
 <script>
 import $ from 'jquery';
+import Pagination from '@/components/Pagination';
 // import ProductModal from '@/components/ProductModal';
 
 export default {
   name: 'DashboardProducts',
   components: {
-    // ProductModal
+    // ProductModal,
+    Pagination
   },
 
   data() {
     return {
       products: [],
       tempProduct: {},
-      isNew: false
+      pagination: {},
+      isNew: false,
+      status: {
+        itemUploading: false,
+        fileUploading: false
+      }
     };
   },
 
   methods: {
-    getProducts() {
+    getProducts(page = 1) {
       const vm = this;
-      const api = `${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/products/all`;
+      const api = `${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/products?page=${page}`;
+      vm.$store.dispatch('updateLoading', true);
 
       vm.$http.get(api).then((response) => {
         if (response.data.success) {
+          vm.$store.dispatch('updateLoading', false);
           vm.products = response.data.products;
+          vm.pagination = response.data.pagination;
         } else {
+          vm.$store.dispatch('updateLoading', false);
           console.log('get products fail', response.data.message);
         }
       });
@@ -274,8 +289,7 @@ export default {
       const vm = this;
       let api = `${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/product`;
       let httpMethod = 'post';
-
-      // vm.status.itemUpdating = true;
+      vm.status.itemUploading = true;
 
       if (!vm.isNew) {
         api = `${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/product/${vm.tempProduct.id}`;
@@ -284,9 +298,11 @@ export default {
 
       vm.$http[httpMethod](api, { data: vm.tempProduct }).then((response) => {
         if (response.data.success) {
+          vm.status.itemUploading = false;
           $('#productModal').modal('hide');
-          vm.getProducts();
+          vm.getProducts(vm.pagination.current_page);
         } else {
+          vm.status.itemUploading = false;
           $('#productModal').modal('hide');
           console.log('上傳產品失敗');
         }
@@ -297,6 +313,7 @@ export default {
       const vm = this;
       const uploadedFile = this.$refs.files.files[0];
       const formData = new FormData();
+      vm.status.fileUploading = true;
 
       formData.append('file-to-upload', uploadedFile);
       const url = `${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/upload`;
@@ -309,8 +326,10 @@ export default {
         })
         .then((response) => {
           if (response.data.success) {
+            vm.status.fileUploading = false;
             vm.$set(vm.tempProduct, 'imageUrl', response.data.imageUrl);
           } else {
+            vm.status.fileUploading = false;
             console.log('上傳圖片失敗');
           }
         });
@@ -319,11 +338,15 @@ export default {
     deleteProduct() {
       const vm = this;
       const api = `${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/product/${vm.tempProduct.id}`;
+      vm.status.itemUploading = true;
+
       vm.$http.delete(api).then((response) => {
         if (response.data.success) {
+          vm.status.itemUploading = false;
           $('#delProductModal').modal('hide');
-          vm.getProducts();
+          vm.getProducts(vm.pagination.current_page);
         } else {
+          vm.status.itemUploading = false;
           $('#delProductModal').modal('hide');
           console.log('刪除產品失敗');
         }

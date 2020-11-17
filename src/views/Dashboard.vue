@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column vh-100">
+  <div class="">
     <div class="content">
       <div class="contaier-fluid d-flex">
         <DashboardSidebar></DashboardSidebar>
