@@ -10,16 +10,52 @@
           <div class="sideFilter col-md-3">
             <ul class="nav nav-pills flex-column text-center">
               <li class="nav-item mb-4">
-                <a class="nav-link border" @click.prevent="filterProducts(); filterTag = ''" :class="{'active' : filterTag == ''}" href="#">所有產品</a>
+                <a
+                  class="nav-link border"
+                  @click.prevent="
+                    filterProducts();
+                    filterTag = '';
+                  "
+                  :class="{ active: filterTag == '' }"
+                  href="#"
+                  >所有產品</a
+                >
               </li>
               <li class="nav-item mb-4">
-                <a class="nav-link border" @click.prevent="filterProducts('書架型'); filterTag = '書架型'" :class="{'active' : filterTag == '書架型'}" href="#">書架型</a>
+                <a
+                  class="nav-link border"
+                  @click.prevent="
+                    filterProducts('書架型');
+                    filterTag = '書架型';
+                  "
+                  :class="{ active: filterTag == '書架型' }"
+                  href="#"
+                  >書架型</a
+                >
               </li>
               <li class="nav-item mb-4">
-                <a class="nav-link border" @click.prevent="filterProducts('落地型'); filterTag = '落地型'" :class="{'active' : filterTag == '落地型'}" href="#">落地型</a>
+                <a
+                  class="nav-link border"
+                  @click.prevent="
+                    filterProducts('落地型');
+                    filterTag = '落地型';
+                  "
+                  :class="{ active: filterTag == '落地型' }"
+                  href="#"
+                  >落地型</a
+                >
               </li>
               <li class="nav-item mb-4">
-                <a class="nav-link border" @click.prevent="filterProducts('家庭劇院'); filterTag = '家庭劇院'" :class="{'active' : filterTag == '家庭劇院'}" href="#">家庭劇院</a>
+                <a
+                  class="nav-link border"
+                  @click.prevent="
+                    filterProducts('家庭劇院');
+                    filterTag = '家庭劇院';
+                  "
+                  :class="{ active: filterTag == '家庭劇院' }"
+                  href="#"
+                  >家庭劇院</a
+                >
               </li>
               <li class="nav-item mb-4">
                 <a class="nav-link border" href="#">價格</a>
@@ -42,17 +78,19 @@
                     排序依據
                   </button>
                   <div class="dropdown-menu" aria-labelledby="sortOptionBtn">
-                    <a class="dropdown-item" href="#">價格低到高</a>
-                    <a class="dropdown-item" href="#">價格高到低</a>
-                    <a class="dropdown-item" href="#">發售日近到遠</a>
-                    <a class="dropdown-item" href="#">發售日遠到近</a>
+                    <a class="dropdown-item" @click.prevent="sortProducts('price', true)" href="#"
+                      >價格低到高</a
+                    >
+                    <a class="dropdown-item" @click.prevent="sortProducts('price', false)" href="#"
+                      >價格高到低</a
+                    >
                   </div>
                 </div>
               </div>
 
               <div
                 class="cardHover--scale col-sm-6 col-xl-4 mb-6"
-                v-for="item in filteredProducts"
+                v-for="item in sortedProducts"
                 :key="item.id"
               >
                 <a href="#" @click="getSingleProduct(item.id)">
@@ -60,13 +98,13 @@
                     <div class="card-img-top">
                       <img :src="item.imageUrl" alt="" />
                     </div>
-                    <div class="card-body card-body-200">
-                      <p>2020.09.05 發售</p>
+                    <div class="card-body card-body-200 px-8 text-center">
                       <h6>{{ item.category }}</h6>
                       <h5 class="rowLimit-1">{{ item.title }}</h5>
                       <p class="rowLimit-2">
                         {{ item.description }}
                       </p>
+                      <span>NTD {{ item.price | currency }}<small> (含稅)</small></span>
                     </div>
                   </div>
                 </a>
@@ -138,11 +176,16 @@ export default {
 
     filterProducts(filter) {
       this.$store.commit('FILTEREDPRODUCTS', filter);
+    },
+
+    sortProducts(sortTarget, ascending) {
+      this.$store.commit('SORTTARGET', sortTarget);
+      this.$store.commit('ASCENDING', ascending);
     }
   },
 
   computed: {
-    ...mapGetters(['allProducts', 'filteredProducts'])
+    ...mapGetters(['allProducts', 'filteredProducts', 'sortedProducts'])
   },
 
   created() {

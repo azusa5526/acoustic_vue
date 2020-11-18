@@ -8,7 +8,9 @@ export default new Vuex.Store({
   state: {
     allProducts: [],
     filteredProducts: [],
-    isLoading: false
+    isLoading: false,
+    sortTarget: '',
+    isAscending: Boolean
   },
   actions: {
     getAllProducts(context) {
@@ -46,6 +48,14 @@ export default new Vuex.Store({
       }
     },
 
+    SORTTARGET(state, target) {
+      state.sortTarget = target;
+    },
+
+    ASCENDING(state, status) {
+      state.isAscending = status;
+    },
+
     LOADING(state, status) {
       state.isLoading = status;
     }
@@ -57,6 +67,18 @@ export default new Vuex.Store({
 
     filteredProducts(state) {
       return state.filteredProducts;
+    },
+
+    sortedProducts(state) {
+      if (state.isAscending) {
+        return state.filteredProducts.sort(function (a, b) {
+          return a[state.sortTarget] - b[state.sortTarget];
+        });
+      } else {
+        return state.filteredProducts.sort(function (a, b) {
+          return b[state.sortTarget] - a[state.sortTarget];
+        });
+      }
     },
 
     isLoading(state) {
