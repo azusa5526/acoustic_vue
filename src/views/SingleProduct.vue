@@ -34,7 +34,7 @@
               >
             </div>
             <div class="d-flex justify-content-end">
-              <router-link to="/appointment" class="btn btn-primary w-50">即刻預約試聽</router-link>
+              <router-link :to="{name: 'Appointment', params: {id: productID}}" class="btn btn-primary w-50" >即刻預約試聽</router-link>
             </div>
           </div>
         </div>
@@ -62,7 +62,7 @@
         </div>
       </div>
 
-      <div class="productRecommanded container-fluid bg-secondary">
+      <div class="productRecommanded container-fluid bg-light">
         <div class="container">
           <h6 class="text-center font-weight-light py-11 mb-0">RECOMMAND</h6>
           <swiper class="pb-11" ref="newProductsSwiper" :options="newProductsSwiperOptions">

@@ -16,12 +16,12 @@
               <label for="serviceSelect">預約項目</label>
             </div>
             <div class="col-sm-9 col-lg-10">
-              <select class="form-control" id="serviceSelect">
+              <select class="form-control" id="serviceSelect" :disabled="product !== ''">
                 <option class="d-none">--- 請選擇 ---</option>
-                <option value="書架型">書架型音響試聽</option>
-                <option value="落地型">落地型音響試聽</option>
-                <option value="家庭劇院">家庭劇院音響試聽</option>
-                <option value="其他">其他器材適用(AMP、SUB)</option>
+                <option value="書架型" :SELECTED="product.category == '書架型'">書架型音響試聽</option>
+                <option value="落地型" :SELECTED="product.category == '落地型'">落地型音響試聽</option>
+                <option value="家庭劇院" :SELECTED="product.category == '家庭劇院'">家庭劇院音響試聽</option>
+                <option value="其他" :SELECTED="product.category == '其他'">其他器材適用(AMP、SUB)</option>
               </select>
             </div>
           </div>
@@ -31,7 +31,7 @@
               <label for="productName">詳細型號</label>
             </div>
             <div class="col-sm-9 col-lg-10">
-              <input type="text" class="form-control" id="productName" />
+              <input type="text" class="form-control" id="productName" :value="product.title" :disabled="product !== ''"/>
             </div>
           </div>
 
@@ -93,6 +93,38 @@ export default {
   components: {
     Navbar,
     Footer
+  },
+
+  data() {
+    return {
+      productID: '',
+      product: ''
+    };
+  },
+
+  methods: {
+    getSingleProduct() {
+      const vm = this;
+      const api = `${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/product/${vm.productID}`;
+      vm.$store.dispatch('updateLoading', true);
+
+      vm.$http.get(api).then((response) => {
+        if (response.data.success) {
+          vm.$store.dispatch('updateLoading', false);
+          vm.product = response.data.product;
+        } else {
+          vm.$store.dispatch('updateLoading', false);
+          console.log('取得單一產品失敗');
+        }
+      });
+    }
+  },
+
+  created() {
+    this.productID = this.$route.params.id;
+    if (this.productID) {
+      this.getSingleProduct();
+    }
   }
 };
 </script>

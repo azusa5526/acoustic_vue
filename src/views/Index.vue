@@ -39,13 +39,13 @@
             <div class="col-md-10 col-lg-6 offset-md-1 offset-lg-6 bg-glass shadow-lg p-11 p-lg-12">
               <h2 class="mb-8 font-weight-light">Listen and You Will See</h2>
               <h5 class="mb-5">即刻預約試聽<br />感受前所未有「看見」聲音的極上體驗</h5>
-              <a href="appointment.html" class="btn btn-primary btn-lg px-6 w-75">立即預約</a>
+              <router-link to="/appointment" class="btn btn-primary btn-lg px-6 w-75">立即預約</router-link>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="newProducts container-fluid bg-secondary mb-12">
+      <div class="newProducts container-fluid bg-light mb-12">
         <div class="container">
           <h6 class="text-center font-weight-light py-11 mb-0">NEW PRODUCTS</h6>
           <swiper class="pb-11" ref="newProductsSwiper" :options="newProductsSwiperOptions">
