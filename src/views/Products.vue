@@ -95,10 +95,10 @@
               >
                 <a href="#" @click="getSingleProduct(item.id)">
                   <div class="card">
-                    <div class="card-img-top">
+                    <div class=" card-img-square">
                       <img :src="item.imageUrl" alt="" />
                     </div>
-                    <div class="card-body card-body-200 px-8 text-center">
+                    <div class="card-body card-body-200 px-7 text-center">
                       <h6>{{ item.category }}</h6>
                       <h5 class="rowLimit-1">{{ item.title }}</h5>
                       <p class="rowLimit-2">

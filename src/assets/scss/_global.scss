@@ -22,21 +22,37 @@ ul {
 }
 
 //card
-.card-img-top img {
-  height: 250px;
-  width: 100%;
-  object-position: center;
+.card-img-top {
+  img {
+    height: 250px;
+    width: 100%;
+    object-position: center;
+  }
 }
 
-.card-body-150{
+.card-img-300 {
+  img {
+    height: 300px;
+  }
+}
+
+.card-img-square {
+  height: 0;
+  overflow: hidden;
+  padding-bottom: 100%;
+  position: relative;
+  // container 1:1, img recommand 1:1
+}
+
+.card-body-150 {
   height: 150px;
 }
 
-.card-body-200{
+.card-body-200 {
   height: 200px;
 }
 
-.card-body-250{
+.card-body-250 {
   height: 250px;
 }
 
@@ -46,7 +62,6 @@ ul {
     transition: ease-out;
     transition-duration: 0.2s;
 
-  
     &:hover {
       transform: scale(1.02);
       transition: ease-out;
@@ -56,13 +71,13 @@ ul {
   }
 }
 
-.cardHover--lineStretch  {
+.cardHover--lineStretch {
   a {
     position: relative;
 
     &:hover {
       text-decoration: none;
-  
+
       &::after {
         right: 0;
         left: 0;
@@ -70,9 +85,9 @@ ul {
         transition-duration: 0.3s;
       }
     }
-  
+
     &::after {
-      content: "";
+      content: '';
       position: absolute;
       right: 50%;
       left: 50%;

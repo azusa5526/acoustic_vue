@@ -52,7 +52,7 @@
             <swiper-slide>
               <a href="#">
                 <div class="card">
-                  <div class="card-img-top">
+                  <div class="card-img-top card-img-300">
                     <img src="../assets/img/product_1_1.jpg" alt="" />
                   </div>
                   <div class="card-body card-body-200">
@@ -67,7 +67,7 @@
             <swiper-slide>
               <a href="#">
                 <div class="card">
-                  <div class="card-img-top">
+                  <div class="card-img-top card-img-300">
                     <img src="../assets/img/product_2_1.jpg" alt="" />
                   </div>
                   <div class="card-body card-body-200">
@@ -82,7 +82,7 @@
             <swiper-slide>
               <a href="#">
                 <div class="card">
-                  <div class="card-img-top">
+                  <div class="card-img-top card-img-300">
                     <img src="../assets/img/product_3_1.jpg" alt="" />
                   </div>
                   <div class="card-body card-body-200">
