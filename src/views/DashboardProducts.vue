@@ -38,7 +38,7 @@
           </tr>
         </tbody>
       </table>
-      <Pagination :pagination="pagination" @changePage="getProducts"></Pagination>
+      <DashboardPagination :pagination="pagination" @changePage="getProducts"></DashboardPagination>
     </div>
 
     <div
@@ -228,14 +228,14 @@
 
 <script>
 import $ from 'jquery';
-import Pagination from '@/components/Pagination';
+import DashboardPagination from '@/components/DashboardPagination';
 // import ProductModal from '@/components/ProductModal';
 
 export default {
   name: 'DashboardProducts',
   components: {
     // ProductModal,
-    Pagination
+    DashboardPagination
   },
 
   data() {

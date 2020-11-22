@@ -37,7 +37,6 @@ new Vue({
   render: (h) => h(App)
 }).$mount('#app');
 
-// 導航守衛
 router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth) {
     const api = `${process.env.VUE_APP_API_PATH}/api/user/check`;

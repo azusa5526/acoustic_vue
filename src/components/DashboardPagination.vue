@@ -1,33 +1,33 @@
 <template>
   <div>
     <nav aria-label="Page navigation example">
-      <ul class="pagination m-0">
-        <li :class="{ disabled: !pagination.has_pre }" class="page-item">
+      <ul class="pagination">
+        <li :class="{'disabled' : !pagination.has_pre}" class="page-item">
           <a
             @click="changePage(pagination.current_page - 1)"
             aria-label="Previous"
             class="page-link"
             href="#"
           >
-            <span aria-hidden="true">Prev</span>
+            <span aria-hidden="true">&laquo;</span>
           </a>
         </li>
         <li
-          :class="{ active: pagination.current_page == page }"
+          :class="{'active' : pagination.current_page == page}"
           :key="page"
           class="page-item"
           v-for="page in pagination.total_pages"
         >
-          <a @click="changePage(page)" class="page-link" href="#">{{ page }}</a>
+          <a @click="changePage(page)" class="page-link" href="#">{{page}}</a>
         </li>
-        <li :class="{ disabled: !pagination.has_next }" class="page-item">
+        <li :class="{'disabled' : !pagination.has_next}" class="page-item">
           <a
             @click="changePage(pagination.current_page + 1)"
             aria-label="Next"
             class="page-link"
             href="#"
           >
-            <span aria-hidden="true">Next</span>
+            <span aria-hidden="true">&raquo;</span>
           </a>
         </li>
       </ul>
@@ -36,21 +36,16 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 export default {
+  props: ['pagination'],
   data() {
     return {};
   },
 
   methods: {
     changePage(targetPage) {
-      this.$store.commit('PAGINATIONCOUNTER', targetPage);
+      this.$emit('changePage', targetPage);
     }
-  },
-
-  computed: {
-    ...mapGetters(['pagination'])
   }
 };
 </script>
