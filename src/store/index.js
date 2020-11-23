@@ -18,7 +18,9 @@ export default new Vuex.Store({
       total_pages: 1,
       page_size: 6
     },
-    filterCommands: []
+    filterTag: '',
+    maxPrice: '',
+    minPrice: ''
   },
 
   actions: {
@@ -34,7 +36,7 @@ export default new Vuex.Store({
         if (response.data.success) {
           context.commit('LOADING', false);
           context.commit('ALLPRODUCTS', response.data.products.reverse());
-          context.commit('FILTEREDPRODUCTS');
+          context.commit('CATEGORYFILTER');
           context.commit('SORTPRODUCTS', {});
           context.commit('PAGINATIONCOUNTER', 1);
         } else {
@@ -44,8 +46,9 @@ export default new Vuex.Store({
       });
     },
 
-    filterProducts(context, filter) {
-      context.commit('FILTEREDPRODUCTS', filter);
+    filterProducts(context) {
+      context.commit('CATEGORYFILTER');
+      context.commit('PRICEFILTER');
       context.commit('SORTPRODUCTS', {});
       context.commit('PAGINATIONCOUNTER', 1);
     },
@@ -70,34 +73,37 @@ export default new Vuex.Store({
       state.allProducts = axiosData;
     },
 
-    FILTEREDPRODUCTS(state, filter) {
-      if (!filter) {
+    CATEGORYFILTER(state) {
+      if (state.filterTag === '所有產品') {
         state.filteredProducts = state.allProducts;
       } else {
         state.filteredProducts = state.allProducts.filter(function (item) {
-          return item.category.indexOf(filter) !== -1;
+          return item.category.indexOf(state.filterTag) !== -1;
         });
       }
     },
 
-    CATEGORYFILTER(state, category) {
+    PRICEFILTER(state) {
       let tempResult = [];
+      if (!state.maxPrice && !state.minPrice) {
+        return state.filteredProducts;
+      }
       tempResult = state.filteredProducts.filter(function (item) {
-        return item.category.indexOf(category) !== -1;
+        return item.price > state.minPrice && item.price <= state.maxPrice;
       });
       state.filteredProducts = tempResult;
     },
 
-    PRICEFILTER(state, { minPrice, maxPrice }) {
-      let tempResult = [];
-      tempResult = state.filteredProducts.filter(function (item) {
-        return item.price > minPrice && item.price <= maxPrice;
-      });
-      state.filteredProducts = tempResult;
+    CATEGORYTAG(state, filterTag) {
+      state.filterTag = filterTag;
+    },
+
+    PRICELIMIT(state, payload) {
+      state.minPrice = payload.minPrice;
+      state.maxPrice = payload.maxPrice;
     },
 
     SORTPRODUCTS(state, { sortTarget, isAscending }) {
-      console.log(' sortTarget, isAscending', sortTarget, isAscending);
       if (isAscending) {
         state.sortedProducts = state.filteredProducts.sort(function (a, b) {
           return a[sortTarget] - b[sortTarget];
@@ -143,10 +149,6 @@ export default new Vuex.Store({
 
     CHANGE_PAGESIZE(state, pageSize) {
       state.pagination.page_size = pageSize;
-    },
-
-    PUSHFILTER(state, filter) {
-      state.filterCommands.push(filter);
     }
   },
 

@@ -13,10 +13,10 @@
                 <a
                   class="nav-link border"
                   @click.prevent="
-                    filterProducts();
-                    filterTag = '';
+                    filterTag = '所有產品';
+                    changeCategoryTag();
                   "
-                  :class="{ active: filterTag == '' }"
+                  :class="{ active: filterTag == '所有產品' }"
                   href="#"
                   >所有產品</a
                 >
@@ -25,8 +25,8 @@
                 <a
                   class="nav-link border"
                   @click.prevent="
-                    filterProducts('書架型');
                     filterTag = '書架型';
+                    changeCategoryTag();
                   "
                   :class="{ active: filterTag == '書架型' }"
                   href="#"
@@ -37,8 +37,8 @@
                 <a
                   class="nav-link border"
                   @click.prevent="
-                    filterProducts('落地型');
                     filterTag = '落地型';
+                    changeCategoryTag();
                   "
                   :class="{ active: filterTag == '落地型' }"
                   href="#"
@@ -49,8 +49,8 @@
                 <a
                   class="nav-link border"
                   @click.prevent="
-                    filterProducts('家庭劇院');
                     filterTag = '家庭劇院';
+                    changeCategoryTag();
                   "
                   :class="{ active: filterTag == '家庭劇院' }"
                   href="#"
@@ -62,11 +62,17 @@
             <div class="">
               <h6>價格範圍</h6>
               <div class="priceFilter d-flex mb-4">
-                <input class="" type="text" />
+                <input v-model.number="minPrice" class="" type="text" />
                 <span> - </span>
-                <input type="text" />
+                <input v-model.number="maxPrice" type="text" />
               </div>
-              <button class="btn btn-outline-primary w-100">套用價格過濾</button>
+              <button class="btn btn-outline-primary w-100" @click="changePriceLimit()">
+                套用價格過濾
+              </button>
+            </div>
+            <hr />
+            <div>
+              <div class="btn btn-outline-danger w-100" @click="clearFilters()">清除所有條件</div>
             </div>
           </div>
 
@@ -201,9 +207,11 @@ export default {
   data() {
     return {
       products: [],
-      filterTag: '',
+      filterTag: '所有產品',
       sortBy: '排序依據',
-      pageSize: '每頁產品數'
+      pageSize: '每頁產品數',
+      minPrice: '',
+      maxPrice: ''
     };
   },
 
@@ -226,12 +234,29 @@ export default {
       });
     },
 
-    pushFilter(filter) {
-      this.$store.commit('PUSHFILTER', filter);
+    changeCategoryTag() {
+      this.$store.commit('CATEGORYTAG', this.filterTag);
+      this.filterProducts();
     },
 
-    filterProducts(filter) {
-      this.$store.dispatch('filterProducts', filter);
+    changePriceLimit() {
+      const minPrice = this.minPrice;
+      const maxPrice = this.maxPrice;
+      this.$store.commit('PRICELIMIT', { minPrice, maxPrice });
+      this.filterProducts();
+    },
+
+    filterProducts() {
+      this.$store.dispatch('filterProducts');
+    },
+
+    clearFilters() {
+      this.minPrice = '';
+      this.maxPrice = '';
+      this.filterTag = '所有產品';
+      this.priceFilterActive = false;
+      this.changeCategoryTag();
+      this.changePriceLimit();
     },
 
     sortProducts(sortTarget, isAscending) {
