@@ -2,12 +2,12 @@
   <div class="d-flex flex-column vh-100">
     <Navbar></Navbar>
     <div class="content">
-      <div class="container-fluid px-6 px-md-8 px-lg-13 mb-10">
+      <div class="container-fluid px-15 px-md-8 px-lg-13 mb-10">
         <div class="text-center py-6 py-md-8">
           <h2>所有產品</h2>
         </div>
         <div class="row mb-6">
-          <div class="sideFilter col-md-3">
+          <div class="sideFilter col-12 mb-5">
             <ul class="nav nav-pills flex-column text-center">
               <li class="nav-item mb-4">
                 <a
@@ -61,10 +61,10 @@
             <hr />
             <div class="">
               <h6>價格範圍</h6>
-              <div class="priceFilter d-flex mb-4">
-                <input v-model.number="minPrice" class="" type="text" />
-                <span> - </span>
-                <input v-model.number="maxPrice" type="text" />
+              <div class="priceFilter input-group input-group-sm mb-4">
+                <input v-model.number="minPrice" class="form-control mr-3" type="text" />
+                <span> —— </span>
+                <input v-model.number="maxPrice" class="form-control ml-3" type="text" />
               </div>
               <button class="btn btn-outline-primary w-100" @click="changePriceLimit()">
                 套用價格過濾
@@ -76,7 +76,7 @@
             </div>
           </div>
 
-          <div class="products col-md-9">
+          <div class="products col-12">
             <div class="row">
               <div class="mx-15 mb-4 w-100 border-bottom border-top d-flex">
                 <div class="dropdown">
