@@ -3,6 +3,8 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import 'jquery';
+import 'bootstrap4-toggle/js/bootstrap4-toggle.min.js';
+import 'bootstrap4-toggle/css/bootstrap4-toggle.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 
 // Vue-loading-overlay

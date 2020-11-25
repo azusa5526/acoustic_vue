@@ -16,7 +16,7 @@ export default new Vuex.Store({
       has_next: false,
       has_pre: false,
       total_pages: 1,
-      page_size: 6
+      page_size: 12
     },
     filterTag: '',
     maxPrice: '',
@@ -75,7 +75,6 @@ export default new Vuex.Store({
 
     CATEGORYFILTER(state) {
       if (state.filterTag === '所有產品') {
-        state.filteredProducts = state.allProducts;
       } else {
         state.filteredProducts = state.allProducts.filter(function (item) {
           return item.category.indexOf(state.filterTag) !== -1;
@@ -145,6 +144,8 @@ export default new Vuex.Store({
           state.pagedProducts.push(item);
         }
       });
+
+      state.pagination.page_size = 12;
     },
 
     CHANGE_PAGESIZE(state, pageSize) {

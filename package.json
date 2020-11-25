@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.21.0",
     "bootstrap": "^4.5.3",
+    "bootstrap4-toggle": "^3.6.1",
     "core-js": "^3.6.5",
     "jquery": "^3.5.1",
     "swiper": "^6.3.5",
@@ -34,6 +35,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^6.2.2",
+    "expose-loader": "^1.0.1",
     "node-sass": "^4.12.0",
     "prettier": "2.1.2",
     "sass-loader": "^8.0.2",

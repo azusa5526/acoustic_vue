@@ -1,7 +1,34 @@
 <template>
   <div class="dashboardProducts mh-100 mx-5 py-5">
     <div class="d-flex align-items-center bg-white mb-3 py-4 px-6">
-      <label class="mb-0 mr-4" for="search">搜尋產品</label>
+      <div class="dropdown">
+        <button
+          @click="getCategoryList()"
+          class="btn btn-secondary dropdown-toggle"
+          type="button"
+          id="dropdownMenuButton"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          {{ categoryTag }}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a
+            v-for="(item, index) in categorys"
+            :key="index"
+            @click="
+              categoryTag = item;
+              changeCategoryTag();
+            "
+            class="dropdown-item"
+            href="#"
+            >{{ item }}</a
+          >
+        </div>
+      </div>
+
+      <label class="mb-0 mr-4" for="search">名稱</label>
       <input type="text" class="form-control w-50" id="search" placeholder="產品名稱" />
       <button class="btn btn-primary ml-auto px-2 px-md-4 px-lg-10" @click="openProductModal(true)">
         新增產品
@@ -20,14 +47,30 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in products" :key="item.id">
+          <tr v-for="item in pagedProducts" :key="item.id">
             <td>{{ item.category }}</td>
             <td>{{ item.title }}</td>
             <td>{{ item.origin_price | currency }}</td>
             <td>{{ item.price | currency }}</td>
             <td>
-              <span class="text-success" v-if="item.is_enabled">ENABLE</span>
-              <span class="text-danger" v-else>DISABLE</span>
+              <div
+                class="toggle btn btn-sm btn-primary"
+                data-toggle="toggle"
+                role="button"
+                style="width: 46.325px; height: 30.8px"
+                @click="quickActiveProduct(item)"
+                :class="{ 'bg-light off': !item.is_enabled }"
+              >
+                <input type="checkbox" checked="" data-toggle="toggle" data-size="sm" />
+                <div class="toggle-group">
+                  <label class="btn btn-primary btn-sm toggle-on">On</label>
+                  <label class="btn btn-light btn-sm toggle-off">Off</label>
+                  <span class="toggle-handle btn btn-light btn-sm"></span>
+                </div>
+              </div>
+
+              <!-- <span class="text-success" v-if="item.is_enabled">ENABLE</span>
+              <span class="text-danger" v-else>DISABLE</span> -->
             </td>
             <td>
               <button class="btn btn-sm btn-primary" @click="openProductModal(false, item)">
@@ -38,7 +81,8 @@
           </tr>
         </tbody>
       </table>
-      <DashboardPagination :pagination="pagination" @changePage="getProducts"></DashboardPagination>
+
+      <Pagination></Pagination>
     </div>
 
     <div
@@ -228,45 +272,41 @@
 
 <script>
 import $ from 'jquery';
-import DashboardPagination from '@/components/DashboardPagination';
+import Pagination from '@/components/Pagination';
 // import ProductModal from '@/components/ProductModal';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'DashboardProducts',
   components: {
     // ProductModal,
-    DashboardPagination
+    Pagination
   },
 
   data() {
     return {
       products: [],
       tempProduct: {},
-      pagination: {},
       isNew: false,
       status: {
         itemUploading: false,
         fileUploading: false
-      }
+      },
+      categorys: [],
+      categoryTag: '選擇類別'
     };
   },
 
   methods: {
-    getProducts(page = 1) {
-      const vm = this;
-      const api = `${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/products?page=${page}`;
-      vm.$store.dispatch('updateLoading', true);
+    ...mapActions(['getAllProducts']),
 
-      vm.$http.get(api).then((response) => {
-        if (response.data.success) {
-          vm.$store.dispatch('updateLoading', false);
-          vm.products = response.data.products;
-          vm.pagination = response.data.pagination;
-        } else {
-          vm.$store.dispatch('updateLoading', false);
-          console.log('get products fail', response.data.message);
-        }
-      });
+    changeCategoryTag() {
+      this.$store.commit('CATEGORYTAG', this.categoryTag);
+      this.filterProducts();
+    },
+
+    filterProducts() {
+      this.$store.dispatch('filterProducts');
     },
 
     openProductModal(isNew, item) {
@@ -300,7 +340,7 @@ export default {
         if (response.data.success) {
           vm.status.itemUploading = false;
           $('#productModal').modal('hide');
-          vm.getProducts(vm.pagination.current_page);
+          vm.getAllProducts();
         } else {
           vm.status.itemUploading = false;
           $('#productModal').modal('hide');
@@ -335,6 +375,13 @@ export default {
         });
     },
 
+    quickActiveProduct(item) {
+      this.tempProduct = Object.assign({}, item);
+      this.tempProduct.is_enabled = !this.tempProduct.is_enabled;
+      this.isNew = false;
+      this.uploadProduct();
+    },
+
     deleteProduct() {
       const vm = this;
       const api = `${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/product/${vm.tempProduct.id}`;
@@ -344,18 +391,32 @@ export default {
         if (response.data.success) {
           vm.status.itemUploading = false;
           $('#delProductModal').modal('hide');
-          vm.getProducts(vm.pagination.current_page);
+          vm.getAllProducts();
         } else {
           vm.status.itemUploading = false;
           $('#delProductModal').modal('hide');
           console.log('刪除產品失敗');
         }
       });
+    },
+
+    getCategoryList() {
+      const vm = this;
+      const result = new Set();
+      result.add('所有產品');
+      vm.allProducts.forEach(function (item) {
+        result.add(item.category);
+      });
+      vm.categorys = Array.from(result);
     }
   },
 
+  computed: {
+    ...mapGetters(['allProducts', 'pagedProducts'])
+  },
+
   created() {
-    this.getProducts();
+    this.getAllProducts();
   }
 };
 </script>
