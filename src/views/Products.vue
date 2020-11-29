@@ -216,7 +216,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['getAllProducts']),
+    ...mapActions(['getActivedProducts']),
 
     getSingleProduct(id) {
       const vm = this;
@@ -269,11 +269,11 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['allProducts', 'pagedProducts'])
+    ...mapGetters(['pagedProducts'])
   },
 
   created() {
-    this.getAllProducts();
+    this.getActivedProducts();
   }
 };
 </script>

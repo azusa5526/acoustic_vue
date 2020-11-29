@@ -1,12 +1,14 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
+import router from '@/router';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
     allProducts: [],
+    activedProducts: [],
     filteredProducts: [],
     sortedProducts: [],
     pagedProducts: [],
@@ -46,6 +48,25 @@ export default new Vuex.Store({
       });
     },
 
+    getActivedProducts(context) {
+      const api = `${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/products/all`;
+      context.commit('LOADING', true);
+
+      axios.get(api).then((response) => {
+        if (response.data.success) {
+          context.commit('LOADING', false);
+          context.commit('ALLPRODUCTS', response.data.products.reverse());
+          context.commit('ACTIVEFILTER');
+          context.commit('CATEGORYFILTER');
+          context.commit('SORTPRODUCTS', {});
+          context.commit('PAGINATIONCOUNTER', 1);
+        } else {
+          context.commit('LOADING', false);
+          console.log('取得全部產品失敗');
+        }
+      });
+    },
+
     filterProducts(context) {
       context.commit('CATEGORYFILTER');
       context.commit('PRICEFILTER');
@@ -73,10 +94,26 @@ export default new Vuex.Store({
       state.allProducts = axiosData;
     },
 
+    ACTIVEFILTER(state) {
+      state.activedProducts = state.allProducts.filter(function (item) {
+        return item.is_enabled === 1;
+      });
+    },
+
     CATEGORYFILTER(state) {
-      if (state.filterTag === '所有產品') {
+      let tempProducts = [];
+      console.log(router);
+
+      if (router.history.current.name === 'Products') {
+        tempProducts = state.activedProducts;
       } else {
-        state.filteredProducts = state.allProducts.filter(function (item) {
+        tempProducts = state.allProducts;
+      }
+
+      if (state.filterTag === '所有產品') {
+        state.filteredProducts = tempProducts;
+      } else {
+        state.filteredProducts = tempProducts.filter(function (item) {
           return item.category.indexOf(state.filterTag) !== -1;
         });
       }
@@ -156,6 +193,10 @@ export default new Vuex.Store({
   getters: {
     allProducts(state) {
       return state.allProducts;
+    },
+
+    activedProducts(state) {
+      return state.activedProducts;
     },
 
     filteredProducts(state) {

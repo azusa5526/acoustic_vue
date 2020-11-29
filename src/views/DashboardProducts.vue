@@ -1,7 +1,7 @@
 <template>
-  <div class="dashboardProducts mh-100 mx-5 py-5">
-    <div class="d-flex align-items-center bg-white mb-3 py-4 px-6">
-      <div class="dropdown">
+  <div class="dashboardProducts mh-100 mx-4 py-4">
+    <div class="input-group align-items-center bg-white mb-3 p-4">
+      <div class="dropdown mr-4 mb-3 mb-sm-0">
         <button
           @click="getCategoryList()"
           class="btn btn-secondary dropdown-toggle"
@@ -28,12 +28,21 @@
         </div>
       </div>
 
-      <label class="mb-0 mr-4" for="search">名稱</label>
-      <input type="text" class="form-control w-50" id="search" placeholder="產品名稱" />
-      <button class="btn btn-primary ml-auto px-2 px-md-4 px-lg-10" @click="openProductModal(true)">
+      <div class="d-flex flex-nowrap align-items-center mr-4 mb-3 mb-sm-0 flex-grow">
+        <div class="input-group-prepend">
+          <span class="input-group-text">名稱</span>
+        </div>
+        <input type="text" class="form-control flex-grow" />
+        <div class="input-group-append">
+          <button class="btn btn-primary" type="button">搜尋</button>
+        </div>
+      </div>
+
+      <button class="btn btn-primary px-4 px-sm-6 px-lg-10 mb-3 mb-sm-0" @click="openProductModal(true)">
         新增產品
       </button>
     </div>
+
     <div>
       <table class="table test bg-white">
         <thead>
@@ -58,19 +67,24 @@
                 data-toggle="toggle"
                 role="button"
                 style="width: 46.325px; height: 30.8px"
+                :class="{ 'bg-light off': item.is_enabled === 0 }"
                 @click="quickActiveProduct(item)"
-                :class="{ 'bg-light off': !item.is_enabled }"
               >
-                <input type="checkbox" checked="" data-toggle="toggle" data-size="sm" />
+                <input
+                  :false-value="0"
+                  :true-value="1"
+                  type="checkbox"
+                  data-toggle="toggle"
+                  data-size="sm"
+                  v-model="tempProduct.is_enabled"
+                />
+
                 <div class="toggle-group">
                   <label class="btn btn-primary btn-sm toggle-on">On</label>
                   <label class="btn btn-light btn-sm toggle-off">Off</label>
                   <span class="toggle-handle btn btn-light btn-sm"></span>
                 </div>
               </div>
-
-              <!-- <span class="text-success" v-if="item.is_enabled">ENABLE</span>
-              <span class="text-danger" v-else>DISABLE</span> -->
             </td>
             <td>
               <button class="btn btn-sm btn-primary" @click="openProductModal(false, item)">
@@ -377,8 +391,13 @@ export default {
 
     quickActiveProduct(item) {
       this.tempProduct = Object.assign({}, item);
-      this.tempProduct.is_enabled = !this.tempProduct.is_enabled;
       this.isNew = false;
+      this.$store.dispatch('updateLoading', true);
+      if (this.tempProduct.is_enabled === 0) {
+        this.tempProduct.is_enabled = 1;
+      } else {
+        this.tempProduct.is_enabled = 0;
+      }
       this.uploadProduct();
     },
 
