@@ -17,9 +17,6 @@
   }
 
   .flex-grow {
-    flex: 0;
-    @include media-breakpoint-up(xs) {
-      flex: 1;
-    }
+    flex: 1;
   }
 }

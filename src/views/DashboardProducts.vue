@@ -1,55 +1,70 @@
 <template>
   <div class="dashboardProducts mh-100 mx-4 py-4">
-    <div class="input-group align-items-center bg-white mb-3 p-4">
-      <div class="dropdown mr-4 mb-3 mb-sm-0">
-        <button
-          @click="getCategoryList()"
-          class="btn btn-secondary dropdown-toggle"
-          type="button"
-          id="dropdownMenuButton"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-        >
-          {{ categoryTag }}
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a
-            v-for="(item, index) in categorys"
-            :key="index"
-            @click="
-              categoryTag = item;
-              changeCategoryTag();
-            "
-            class="dropdown-item"
-            href="#"
-            >{{ item }}</a
+    <div class="d-flex flex-column flex-sm-row align-items-end flex-wrap bg-white mb-3 p-4">
+      <div class="input-group mr-4 mb-3 mb-sm-0 flex-grow">
+        <div class="dropdown mb-sm-0">
+          <button
+            @click="getCategoryList()"
+            class="btn btn-secondary dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
           >
+            {{ categoryTag }}
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a
+              v-for="(item, index) in categorys"
+              :key="index"
+              @click="
+                categoryTag = item;
+                changeCategoryTag();
+              "
+              class="dropdown-item"
+              href="#"
+              >{{ item }}</a
+            >
+          </div>
         </div>
+
+        <input
+          v-model="searchTitle"
+          v-on:keyup.enter="changeSearchTitle()"
+          type="text"
+          class="form-control"
+          placeholder="輸入名稱"
+        />
+        <button class="btn btn-primary btn-nowrap d-none d-sm-block" @click="changeSearchTitle()" type="button">
+          搜索名稱
+        </button>
+        <button class="btn btn-danger btn-nowrap d-none d-sm-block" @click="clearFilters()" type="button">
+          清除條件
+        </button>
+        <button class="btn btn-primary btn-nowrap d-block d-sm-none" @click="changeSearchTitle()" type="button">
+          <i class="fas fa-search"></i>
+        </button>
+        <button class="btn btn-danger btn-nowrap d-block d-sm-none" @click="clearFilters()" type="button">
+          <i class="fas fa-trash"></i>
+        </button>
       </div>
 
-      <div class="d-flex flex-nowrap align-items-center mr-4 mb-3 mb-sm-0 flex-grow">
-        <div class="input-group-prepend">
-          <span class="input-group-text">名稱</span>
-        </div>
-        <input type="text" class="form-control flex-grow" />
-        <div class="input-group-append">
-          <button class="btn btn-primary" type="button">搜尋</button>
-        </div>
-      </div>
-
-      <button class="btn btn-primary px-4 px-sm-6 px-lg-10 mb-3 mb-sm-0" @click="openProductModal(true)">
+      <button
+        class="btn btn-primary btn-nowrap px-4 px-sm-6 px-lg-10 mr-4 mr-sm-0"
+        @click="openProductModal(true)"
+      >
         新增產品
       </button>
     </div>
 
     <div>
-      <table class="table test bg-white">
+      <table class="table-sm mb-3 test bg-white">
         <thead>
           <tr class="bg-white">
-            <th>類別</th>
+            <th class="d-none d-sm-table-cell">類別</th>
             <th>名稱</th>
-            <th>原價</th>
+            <th class="d-none d-sm-table-cell">原價</th>
             <th>售價</th>
             <th>啟用</th>
             <th>編輯</th>
@@ -57,9 +72,9 @@
         </thead>
         <tbody>
           <tr v-for="item in pagedProducts" :key="item.id">
-            <td>{{ item.category }}</td>
+            <td class="d-none d-sm-table-cell">{{ item.category }}</td>
             <td>{{ item.title }}</td>
-            <td>{{ item.origin_price | currency }}</td>
+            <td class="d-none d-sm-table-cell">{{ item.origin_price | currency }}</td>
             <td>{{ item.price | currency }}</td>
             <td>
               <div
@@ -87,10 +102,15 @@
               </div>
             </td>
             <td>
-              <button class="btn btn-sm btn-primary" @click="openProductModal(false, item)">
+              <button
+                class="btn btn-sm btn-primary btn-nowrap"
+                @click="openProductModal(false, item)"
+              >
                 編輯
               </button>
-              <button class="btn btn-sm btn-danger" @click="openDelProductModal(item)">刪除</button>
+              <button class="btn btn-sm btn-danger btn-nowrap" @click="openDelProductModal(item)">
+                刪除
+              </button>
             </td>
           </tr>
         </tbody>
@@ -307,7 +327,8 @@ export default {
         fileUploading: false
       },
       categorys: [],
-      categoryTag: '選擇類別'
+      categoryTag: '選擇類別',
+      searchTitle: ''
     };
   },
 
@@ -317,6 +338,18 @@ export default {
     changeCategoryTag() {
       this.$store.commit('CATEGORYTAG', this.categoryTag);
       this.filterProducts();
+    },
+
+    changeSearchTitle() {
+      this.$store.commit('TITLETAG', this.searchTitle);
+      this.filterProducts();
+    },
+
+    clearFilters() {
+      this.searchTitle = '';
+      this.categoryTag = '所有產品';
+      this.changeSearchTitle();
+      this.changeCategoryTag();
     },
 
     filterProducts() {
@@ -436,6 +469,10 @@ export default {
 
   created() {
     this.getAllProducts();
+  },
+
+  destroyed() {
+    this.clearFilters();
   }
 };
 </script>

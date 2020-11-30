@@ -274,6 +274,10 @@ export default {
 
   created() {
     this.getActivedProducts();
+  },
+
+  destroyed() {
+    this.clearFilters();
   }
 };
 </script>

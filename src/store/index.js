@@ -22,7 +22,8 @@ export default new Vuex.Store({
     },
     filterTag: '',
     maxPrice: '',
-    minPrice: ''
+    minPrice: '',
+    productTitle: ''
   },
 
   actions: {
@@ -70,6 +71,7 @@ export default new Vuex.Store({
     filterProducts(context) {
       context.commit('CATEGORYFILTER');
       context.commit('PRICEFILTER');
+      context.commit('TITLEFILTER');
       context.commit('SORTPRODUCTS', {});
       context.commit('PAGINATIONCOUNTER', 1);
     },
@@ -102,8 +104,6 @@ export default new Vuex.Store({
 
     CATEGORYFILTER(state) {
       let tempProducts = [];
-      console.log(router);
-
       if (router.history.current.name === 'Products') {
         tempProducts = state.activedProducts;
       } else {
@@ -130,6 +130,17 @@ export default new Vuex.Store({
       state.filteredProducts = tempResult;
     },
 
+    TITLEFILTER(state) {
+      let tempResult = [];
+      if (!state.productTitle) {
+        return state.filteredProducts;
+      }
+      tempResult = state.filteredProducts.filter(function (item) {
+        return item.title.toLowerCase().indexOf(state.productTitle.toLowerCase()) !== -1;
+      });
+      state.filteredProducts = tempResult;
+    },
+
     CATEGORYTAG(state, filterTag) {
       state.filterTag = filterTag;
     },
@@ -137,6 +148,10 @@ export default new Vuex.Store({
     PRICELIMIT(state, payload) {
       state.minPrice = payload.minPrice;
       state.maxPrice = payload.maxPrice;
+    },
+
+    TITLETAG(state, title) {
+      state.productTitle = title.trim();
     },
 
     SORTPRODUCTS(state, { sortTarget, isAscending }) {
@@ -181,8 +196,6 @@ export default new Vuex.Store({
           state.pagedProducts.push(item);
         }
       });
-
-      state.pagination.page_size = 12;
     },
 
     CHANGE_PAGESIZE(state, pageSize) {
