@@ -24,9 +24,7 @@ export default {
   data() {
     return {};
   },
-
-  methods: {},
-
+  
   created() {
     const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
     this.$http.defaults.headers.common.Authorization = token;

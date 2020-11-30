@@ -5,21 +5,21 @@
     <div class="content">
       <swiper class="slide mb-12" ref="slideSwiper" :options="slideSwiperOptions">
         <swiper-slide>
-          <img src="../assets/img/index_slide_1.png" alt="" />
-          <div
-            class="slide__title d-flex d-md-block flex-column justify-content-center align-items-center py-7 py-md-5 px-10"
-          >
-            <h2 class="text-secondary font-weight-light">B&W 700 Series</h2>
-            <h5 class="text-secondary font-weight-light">Crafted. Honed. Perfected.</h5>
-          </div>
-        </swiper-slide>
-        <swiper-slide>
           <img src="../assets/img/index_slide_2.png" alt="" />
           <div
             class="slide__title d-flex d-md-block flex-column justify-content-center align-items-center py-7 py-md-5 px-10"
           >
             <h2 class="text-secondary font-weight-light">KEF LS50 Wireless II</h2>
             <h5 class="text-secondary font-weight-light">Every note. Every word. Every detail.</h5>
+          </div>
+        </swiper-slide>
+        <swiper-slide>
+          <img src="../assets/img/index_slide_1.png" alt="" />
+          <div
+            class="slide__title d-flex d-md-block flex-column justify-content-center align-items-center py-7 py-md-5 px-10"
+          >
+            <h2 class="text-secondary font-weight-light">B&W 700 Series</h2>
+            <h5 class="text-secondary font-weight-light">Crafted. Honed. Perfected.</h5>
           </div>
         </swiper-slide>
         <swiper-slide>
@@ -39,7 +39,9 @@
             <div class="col-md-10 col-lg-6 offset-md-1 offset-lg-6 bg-glass shadow-lg p-11 p-lg-12">
               <h2 class="mb-8 font-weight-light">Listen and You Will See</h2>
               <h5 class="mb-5">即刻預約試聽<br />感受前所未有「看見」聲音的極上體驗</h5>
-              <router-link to="/appointment" class="btn btn-primary btn-lg px-6 w-75">立即預約</router-link>
+              <router-link to="/appointment" class="btn btn-primary btn-lg px-6 w-75"
+                >立即預約</router-link
+              >
             </div>
           </div>
         </div>
@@ -269,10 +271,6 @@ export default {
     swiper2() {
       return this.$refs.newProductsSwiper.$swiper;
     }
-  },
-
-  mounted() {
-    // console.log('Current Swiper instance object', this.swiper);
   }
 };
 </script>

@@ -176,7 +176,7 @@ export default {
           vm.product = response.data.product;
         } else {
           vm.$store.dispatch('updateLoading', false);
-          console.log('取得單一產品失敗');
+          this.$store.commit('UPDATEMESSAGE', { message: '取得單一產品失敗', status: 'danger' });
         }
       });
     }

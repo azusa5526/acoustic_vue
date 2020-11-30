@@ -36,16 +36,32 @@
           class="form-control"
           placeholder="輸入名稱"
         />
-        <button class="btn btn-primary btn-nowrap d-none d-sm-block" @click="changeSearchTitle()" type="button">
+        <button
+          class="btn btn-primary btn-nowrap d-none d-sm-block"
+          @click="changeSearchTitle()"
+          type="button"
+        >
           搜索名稱
         </button>
-        <button class="btn btn-danger btn-nowrap d-none d-sm-block" @click="clearFilters()" type="button">
+        <button
+          class="btn btn-danger btn-nowrap d-none d-sm-block"
+          @click="clearFilters()"
+          type="button"
+        >
           清除條件
         </button>
-        <button class="btn btn-primary btn-nowrap d-block d-sm-none" @click="changeSearchTitle()" type="button">
+        <button
+          class="btn btn-primary btn-nowrap d-block d-sm-none"
+          @click="changeSearchTitle()"
+          type="button"
+        >
           <i class="fas fa-search"></i>
         </button>
-        <button class="btn btn-danger btn-nowrap d-block d-sm-none" @click="clearFilters()" type="button">
+        <button
+          class="btn btn-danger btn-nowrap d-block d-sm-none"
+          @click="clearFilters()"
+          type="button"
+        >
           <i class="fas fa-trash"></i>
         </button>
       </div>
@@ -307,13 +323,11 @@
 <script>
 import $ from 'jquery';
 import Pagination from '@/components/Pagination';
-// import ProductModal from '@/components/ProductModal';
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'DashboardProducts',
   components: {
-    // ProductModal,
     Pagination
   },
 
@@ -391,7 +405,7 @@ export default {
         } else {
           vm.status.itemUploading = false;
           $('#productModal').modal('hide');
-          console.log('上傳產品失敗');
+          this.$store.commit('UPDATEMESSAGE', { message: '上傳產品失敗', status: 'danger' });
         }
       });
     },
@@ -417,7 +431,7 @@ export default {
             vm.$set(vm.tempProduct, 'imageUrl', response.data.imageUrl);
           } else {
             vm.status.fileUploading = false;
-            console.log('上傳圖片失敗');
+            this.$store.commit('UPDATEMESSAGE', { message: '上傳圖片失敗', status: 'danger' });
           }
         });
     },
@@ -447,7 +461,7 @@ export default {
         } else {
           vm.status.itemUploading = false;
           $('#delProductModal').modal('hide');
-          console.log('刪除產品失敗');
+          this.$store.commit('UPDATEMESSAGE', { message: '刪除產品失敗', status: 'danger' });
         }
       });
     },

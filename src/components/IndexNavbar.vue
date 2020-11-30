@@ -93,17 +93,11 @@ export default {
       }
     }
   },
-
-  created() {
-    // console.log('nav created');
-  },
-
   mounted() {
     window.addEventListener('scroll', this.handleScroll);
   },
 
   destroyed() {
-    // console.log('nav distroyed');
     window.removeEventListener('scroll', this.handleScroll);
   }
 };

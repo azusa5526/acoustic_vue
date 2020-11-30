@@ -1,6 +1,6 @@
 .sidebar {
   @include media-breakpoint-up(md) {
-    flex: 0 0 170px; //or become icons
+    flex: 0 0 170px;
   }
   @include media-breakpoint-up(lg) {
     flex: 0 0 210px;

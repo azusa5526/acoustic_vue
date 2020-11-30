@@ -23,7 +23,10 @@ export default new Vuex.Store({
     filterTag: '',
     maxPrice: '',
     minPrice: '',
-    productTitle: ''
+    productTitle: '',
+    message: '',
+    status: '',
+    isNotice: false
   },
 
   actions: {
@@ -200,6 +203,12 @@ export default new Vuex.Store({
 
     CHANGE_PAGESIZE(state, pageSize) {
       state.pagination.page_size = pageSize;
+    },
+
+    UPDATEMESSAGE(state, payload) {
+      state.message = payload.message;
+      state.status = payload.status;
+      state.isNotice = !state.isNotice;
     }
   },
 
@@ -230,6 +239,18 @@ export default new Vuex.Store({
 
     pagedProducts(state) {
       return state.pagedProducts;
+    },
+
+    message(state) {
+      return state.message;
+    },
+
+    status(state) {
+      return state.status;
+    },
+
+    isNotice(state) {
+      return state.isNotice;
     }
   },
 
