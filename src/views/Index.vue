@@ -52,49 +52,76 @@
           <h6 class="text-center font-weight-light py-11 mb-0">NEW PRODUCTS</h6>
           <swiper class="pb-11" ref="newProductsSwiper" :options="newProductsSwiperOptions">
             <swiper-slide>
-              <a href="#">
+              <router-link to="/products/-MMMmsOXuZdTvGUrcoHJ">
                 <div class="card">
                   <div class="card-img-top card-img-300">
-                    <img src="../assets/img/product_1_1.jpg" alt="" />
+                    <img src="../assets/img/product_5_1.png" alt="" />
                   </div>
                   <div class="card-body card-body-200">
                     <p>2020.09.05 發售</p>
-                    <h6>家庭劇院</h6>
-                    <h4>E255</h4>
-                    <p>衛星通道獨立功放+DSP分頻系統，打造爆棚音效。</p>
+                    <h6>落地型</h6>
+                    <h4 class="rowLimit-1">Q750</h4>
+                    <p class="rowLimit-2">
+                      搭載 Uni-Q 同軸共點中高音單元、一組低音單元和兩組低音輔助擴散器，Q750
+                      專為創造全方位音樂享受而設。
+                    </p>
                   </div>
                 </div>
-              </a>
+              </router-link>
             </swiper-slide>
             <swiper-slide>
-              <a href="#">
+              <router-link to="/products/-MMHdS2S4_byw10EhjGd">
                 <div class="card">
                   <div class="card-img-top card-img-300">
-                    <img src="../assets/img/product_2_1.jpg" alt="" />
+                    <img src="../assets/img/product_4_1.png" alt="" />
                   </div>
                   <div class="card-body card-body-200">
                     <p>2020.09.05 發售</p>
-                    <h6>家庭劇院</h6>
-                    <h4>E255</h4>
-                    <p>衛星通道獨立功放+DSP分頻系統，打造爆棚音效。</p>
+                    <h6>書架型</h6>
+                    <h4 class="rowLimit-1">LS50 WIRELESS II</h4>
+                    <p class="rowLimit-2">
+                      擁有卓越的音質表現，更是一組功能齊全的一體式音響系統。透過AirPlay2、Chromecast
+                      等無線連接功能，能輕鬆與家裡的各種音源串流播放。
+                    </p>
                   </div>
                 </div>
-              </a>
+              </router-link>
             </swiper-slide>
             <swiper-slide>
-              <a href="#">
+              <router-link to="/products/-MNN4sCxMaa_PYPY9QOD">
                 <div class="card">
                   <div class="card-img-top card-img-300">
-                    <img src="../assets/img/product_3_1.jpg" alt="" />
+                    <img src="../assets/img/product_7_1.jpg" alt="" />
                   </div>
                   <div class="card-body card-body-200">
                     <p>2020.09.05 發售</p>
-                    <h6>家庭劇院</h6>
-                    <h4>E255</h4>
-                    <p>衛星通道獨立功放+DSP分頻系統，打造爆棚音效。</p>
+                    <h6>落地型</h6>
+                    <h4 class="rowLimit-1">702 Series2</h4>
+                    <p class="rowLimit-2">
+                      700
+                      系列旗艦落地式喇叭，擁有最先進的聲學科技，包含堅固高音單體外殼包覆的碳高音單體。
+                    </p>
                   </div>
                 </div>
-              </a>
+              </router-link>
+            </swiper-slide>
+            <swiper-slide>
+              <router-link to="/products/-MNN5FjW-XgpohLjmFb3">
+                <div class="card">
+                  <div class="card-img-top card-img-300">
+                    <img src="../assets/img/product_8_1.png" alt="" />
+                  </div>
+                  <div class="card-body card-body-200">
+                    <p>2020.09.05 發售</p>
+                    <h6>落地型</h6>
+                    <h4 class="rowLimit-1">Arden</h4>
+                    <p class="rowLimit-2">
+                      Tannoy Legacy
+                      ARDEN經典15吋雙同軸落地喇叭，採著名HPD設計，音樂是藝術必須感受它美麗外觀，細節和細微處，而沒有音染或失去音樂精華。
+                    </p>
+                  </div>
+                </div>
+              </router-link>
             </swiper-slide>
           </swiper>
         </div>
@@ -262,6 +289,12 @@ export default {
         }
       }
     };
+  },
+
+  methods: {
+    getSingleProduct(id) {
+      this.$store.dispatch('getSingleProduct', id);
+    }
   },
 
   computed: {
