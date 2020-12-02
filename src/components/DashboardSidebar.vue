@@ -41,7 +41,6 @@ export default {
 
       vm.$http.post(api).then((response) => {
         if (response.data.success) {
-          console.log(response.data.message);
           vm.$router.push('/');
         }
       });

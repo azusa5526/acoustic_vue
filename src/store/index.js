@@ -23,7 +23,10 @@ export default new Vuex.Store({
     filterTag: '',
     maxPrice: '',
     minPrice: '',
-    productTitle: ''
+    productTitle: '',
+    message: '',
+    status: '',
+    isNotice: false
   },
 
   actions: {
@@ -44,7 +47,7 @@ export default new Vuex.Store({
           context.commit('PAGINATIONCOUNTER', 1);
         } else {
           context.commit('LOADING', false);
-          console.log('取得全部產品失敗');
+          context.commit('UPDATEMESSAGE', { message: '取得全部產品失敗', status: 'danger' });
         }
       });
     },
@@ -63,7 +66,22 @@ export default new Vuex.Store({
           context.commit('PAGINATIONCOUNTER', 1);
         } else {
           context.commit('LOADING', false);
-          console.log('取得全部產品失敗');
+          context.commit('UPDATEMESSAGE', { message: '取得全部產品失敗', status: 'danger' });
+        }
+      });
+    },
+
+    getSingleProduct(context, id) {
+      const api = `${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/product/${id}`;
+      context.commit('LOADING', true);
+
+      axios.get(api).then((response) => {
+        if (response.data.success) {
+          context.commit('LOADING', false);
+          router.push(`/products/${response.data.product.id}`);
+        } else {
+          context.commit('LOADING', false);
+          context.commit('UPDATEMESSAGE', { message: '取得單一產品失敗', status: 'danger' });
         }
       });
     },
@@ -200,6 +218,12 @@ export default new Vuex.Store({
 
     CHANGE_PAGESIZE(state, pageSize) {
       state.pagination.page_size = pageSize;
+    },
+
+    UPDATEMESSAGE(state, payload) {
+      state.message = payload.message;
+      state.status = payload.status;
+      state.isNotice = !state.isNotice;
     }
   },
 
@@ -230,6 +254,18 @@ export default new Vuex.Store({
 
     pagedProducts(state) {
       return state.pagedProducts;
+    },
+
+    message(state) {
+      return state.message;
+    },
+
+    status(state) {
+      return state.status;
+    },
+
+    isNotice(state) {
+      return state.isNotice;
     }
   },
 

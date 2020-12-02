@@ -9,16 +9,13 @@ import 'bootstrap/dist/js/bootstrap.bundle.js';
 import 'bootstrap4-toggle/js/bootstrap4-toggle.min.js';
 import 'bootstrap4-toggle/css/bootstrap4-toggle.min.css';
 
-// Vue-loading-overlay
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 
-// Swiper
 import VueAwesomeSwiper from 'vue-awesome-swiper';
 import 'swiper';
 import 'swiper/swiper-bundle.css';
 
-// Axios
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 
@@ -65,7 +62,6 @@ router.beforeEach((to, from, next) => {
   }
 });
 
-// 路徑切換回到頂部
 router.afterEach(() => {
   window.scrollTo(0, 0);
 });

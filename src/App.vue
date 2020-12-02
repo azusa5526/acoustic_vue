@@ -1,16 +1,20 @@
 <template>
   <div id="app">
     <loading :active.sync="isLoading"></loading>
+    <AlertMessage></AlertMessage>
     <router-view />
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
+import AlertMessage from '@/components/AlertMessage';
 
 export default {
   name: 'App',
-  components: {},
+  components: {
+    AlertMessage
+  },
   data() {
     return {};
   },

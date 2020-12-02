@@ -219,19 +219,7 @@ export default {
     ...mapActions(['getActivedProducts']),
 
     getSingleProduct(id) {
-      const vm = this;
-      const api = `${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/product/${id}`;
-      vm.$store.dispatch('updateLoading', true);
-
-      vm.$http.get(api).then((response) => {
-        if (response.data.success) {
-          vm.$store.dispatch('updateLoading', false);
-          vm.$router.push(`/products/${response.data.product.id}`);
-        } else {
-          vm.$store.dispatch('updateLoading', false);
-          console.log('取得單一產品失敗');
-        }
-      });
+      this.$store.dispatch('getSingleProduct', id);
     },
 
     changeCategoryTag() {
@@ -274,6 +262,7 @@ export default {
 
   created() {
     this.getActivedProducts();
+    this.$store.dispatch('changePageSize', 6);
   },
 
   destroyed() {
