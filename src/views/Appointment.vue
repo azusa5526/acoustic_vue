@@ -16,12 +16,25 @@
               <label for="serviceSelect">預約項目</label>
             </div>
             <div class="col-sm-9 col-lg-10">
-              <select class="form-control" id="serviceSelect" :disabled="product !== ''">
+              <select
+                class="form-control"
+                id="serviceSelect"
+                v-model="tempAppointment.category"
+                :disabled="product !== ''"
+              >
                 <option class="d-none">--- 請選擇 ---</option>
-                <option value="書架型" :SELECTED="product.category == '書架型'">書架型音響試聽</option>
-                <option value="落地型" :SELECTED="product.category == '落地型'">落地型音響試聽</option>
-                <option value="家庭劇院" :SELECTED="product.category == '家庭劇院'">家庭劇院音響試聽</option>
-                <option value="其他" :SELECTED="product.category == '其他'">其他器材適用(AMP、SUB)</option>
+                <option value="書架型" :SELECTED="product.category == '書架型'">
+                  書架型音響試聽
+                </option>
+                <option value="落地型" :SELECTED="product.category == '落地型'">
+                  落地型音響試聽
+                </option>
+                <option value="家庭劇院" :SELECTED="product.category == '家庭劇院'">
+                  家庭劇院音響試聽
+                </option>
+                <option value="其他" :SELECTED="product.category == '其他'">
+                  其他器材適用(AMP、SUB)
+                </option>
               </select>
             </div>
           </div>
@@ -31,7 +44,13 @@
               <label for="productName">詳細型號</label>
             </div>
             <div class="col-sm-9 col-lg-10">
-              <input type="text" class="form-control" id="productName" :value="product.title" :disabled="product !== ''"/>
+              <input
+                type="text"
+                class="form-control"
+                id="productName"
+                :disabled="product !== ''"
+                v-model="tempAppointment.title"
+              />
             </div>
           </div>
 
@@ -40,7 +59,18 @@
               <label for="date">預約時間</label>
             </div>
             <div class="col-sm-9 col-lg-10">
-              <input type="datetime-local" class="form-control" id="tel" />
+              <el-date-picker v-model="tempAppointment.date" type="date" placeholder="選擇日期">
+              </el-date-picker>
+              <el-time-select
+                v-model="tempAppointment.time"
+                :picker-options="{
+                  start: '13:00',
+                  step: '00:30',
+                  end: '20:00'
+                }"
+                placeholder="選擇時間"
+              >
+              </el-time-select>
             </div>
           </div>
 
@@ -51,7 +81,13 @@
               <label for="name">預約人姓名</label>
             </div>
             <div class="col-sm-9 col-lg-10">
-              <input type="text" class="form-control" id="name" aria-describedby="emailHelp" />
+              <input
+                type="text"
+                class="form-control"
+                v-model="tempAppointment.name"
+                id="name"
+                aria-describedby="emailHelp"
+              />
             </div>
           </div>
 
@@ -60,7 +96,13 @@
               <label for="email">Email信箱</label>
             </div>
             <div class="col-sm-9 col-lg-10">
-              <input type="email" class="form-control" id="email" aria-describedby="emailHelp" />
+              <input
+                type="email"
+                class="form-control"
+                v-model="tempAppointment.email"
+                id="email"
+                aria-describedby="emailHelp"
+              />
             </div>
           </div>
 
@@ -69,12 +111,15 @@
               <label for="tel">手機號碼</label>
             </div>
             <div class="col-sm-9 col-lg-10">
-              <input type="tel" class="form-control" id="tel" />
+              <input type="tel" class="form-control" v-model="tempAppointment.phone" id="tel" />
             </div>
           </div>
 
-          <button type="submit" class="offset-sm-3 offset-lg-2 btn btn-primary px-8">
+          <button class="offset-sm-3 offset-lg-2 btn btn-primary px-8" @click="sendAppointment()">
             送出預約申請
+          </button>
+          <button class="offset-sm-3 offset-lg-2 btn btn-primary px-8" @click="getAppointment()">
+            查看申請
           </button>
         </form>
       </div>
@@ -98,7 +143,17 @@ export default {
   data() {
     return {
       productID: '',
-      product: ''
+      product: '',
+      tempAppointment: {
+        id: '',
+        category: '',
+        title: '',
+        date: '',
+        time: '',
+        name: '',
+        email: '',
+        phone: ''
+      }
     };
   },
 
@@ -112,10 +167,51 @@ export default {
         if (response.data.success) {
           vm.$store.dispatch('updateLoading', false);
           vm.product = response.data.product;
+          vm.tempAppointment.category = vm.product.category;
+          vm.tempAppointment.title = vm.product.title;
         } else {
           vm.$store.dispatch('updateLoading', false);
           console.log('取得單一產品失敗');
         }
+      });
+    },
+
+    sendAppointment() {
+      const vm = this;
+      vm.tempAppointment.id = vm.generateUUID();
+      const api = 'http://localhost:3000/appointments/';
+      console.log('send');
+
+      vm.$http
+        .post(api, vm.tempAppointment, {
+          headers: {
+            'Content-type': 'application/json'
+          }
+        })
+        .then((response) => {
+          // console.log(response);
+        });
+    },
+
+    getAppointment() {
+      const vm = this;
+      const id = '42e58b8a-2e35-46af-9543-a0173b0f8d89';
+      const api = `http://localhost:3000/appointments/${id}`;
+
+      vm.$http.get(api).then((response) => {
+        console.log(response);
+      });
+    },
+
+    generateUUID() {
+      let d = Date.now();
+      if (typeof performance !== 'undefined' && typeof performance.now === 'function') {
+        d += performance.now();
+      }
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        const r = (d + Math.random() * 16) % 16 | 0;
+        d = Math.floor(d / 16);
+        return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16);
       });
     }
   },

@@ -10,7 +10,7 @@ import Login from '@/views/Login';
 
 import Dashboard from '@/views/Dashboard';
 import DashboardProducts from '@/views/DashboardProducts';
-import DashboardOrder from '@/views/DashboardOrder';
+import DashboardAppointment from '@/views/DashboardAppointment';
 import DashboardCoupon from '@/views/DashboardCoupon';
 import DashboardOthers from '@/views/DashboardOthers';
 
@@ -63,9 +63,9 @@ const routes = [
         meta: { requiresAuth: true }
       },
       {
-        path: 'order',
-        name: 'DashboardOrder',
-        component: DashboardOrder,
+        path: 'appointment',
+        name: 'DashboardAppointment',
+        component: DashboardAppointment,
         meta: { requiresAuth: true }
       },
       {

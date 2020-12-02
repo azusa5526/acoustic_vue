@@ -3,9 +3,11 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import 'jquery';
+import 'bootstrap/dist/js/bootstrap.bundle.js';
+
+// Bootstrap4 Toggle
 import 'bootstrap4-toggle/js/bootstrap4-toggle.min.js';
 import 'bootstrap4-toggle/css/bootstrap4-toggle.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.js';
 
 // Vue-loading-overlay
 import Loading from 'vue-loading-overlay';
@@ -20,12 +22,17 @@ import 'swiper/swiper-bundle.css';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 
+// ElementUI
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+
 // filters
 import currencyFilter from './filters/currency';
 import persentageFilter from './filters/persentage';
 
 Vue.use(VueAwesomeSwiper);
 Vue.use(VueAxios, axios);
+Vue.use(ElementUI);
 Vue.component('Loading', Loading); // 全域啟用，元件內不用一一載入
 Vue.filter('currency', currencyFilter);
 Vue.filter('persentage', persentageFilter);

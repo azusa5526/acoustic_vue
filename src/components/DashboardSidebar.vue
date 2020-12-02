@@ -10,7 +10,7 @@
         >
       </li>
       <li class="nav-item mb-3">
-        <router-link class="nav-link text-white py-4" to="/dashboard/order">訂單訊息</router-link>
+        <router-link class="nav-link text-white py-4" to="/dashboard/appointment">預約訊息</router-link>
       </li>
       <li class="nav-item mb-3">
         <router-link class="nav-link text-white py-4" to="/dashboard/coupon">折價管理</router-link>
