@@ -118,9 +118,6 @@
           <button class="offset-sm-3 offset-lg-2 btn btn-primary px-8" @click="sendAppointment()">
             送出預約申請
           </button>
-          <button class="offset-sm-3 offset-lg-2 btn btn-primary px-8" @click="getAppointment()">
-            查看申請
-          </button>
         </form>
       </div>
     </div>
@@ -180,7 +177,6 @@ export default {
       const vm = this;
       vm.tempAppointment.id = vm.generateUUID();
       const api = 'http://localhost:3000/appointments/';
-      console.log('send');
 
       vm.$http
         .post(api, vm.tempAppointment, {
@@ -189,7 +185,11 @@ export default {
           }
         })
         .then((response) => {
-          // console.log(response);
+          if (response.status === 200 || response.status === 201) {
+            this.$store.commit('UPDATEMESSAGE', { message: '已提交預約', status: 'secondary' });
+          } else {
+            this.$store.commit('UPDATEMESSAGE', { message: '提交預約失敗', status: 'danger' });
+          }
         });
     },
 
@@ -199,7 +199,11 @@ export default {
       const api = `http://localhost:3000/appointments/${id}`;
 
       vm.$http.get(api).then((response) => {
-        console.log(response);
+        if (response.status === 200 || response.status === 201) {
+
+        } else {
+
+        }
       });
     },
 

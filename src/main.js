@@ -27,6 +27,11 @@ import 'element-ui/lib/theme-chalk/index.css';
 import currencyFilter from './filters/currency';
 import persentageFilter from './filters/persentage';
 
+// VeeValidate3
+import { ValidationObserver, ValidationProvider, extend, localize, configure } from 'vee-validate';
+import TW from 'vee-validate/dist/locale/zh_TW.json';
+import * as rules from 'vee-validate/dist/rules';
+
 Vue.use(VueAwesomeSwiper);
 Vue.use(VueAxios, axios);
 Vue.use(ElementUI);
@@ -34,6 +39,24 @@ Vue.component('Loading', Loading); // 全域啟用，元件內不用一一載入
 Vue.filter('currency', currencyFilter);
 Vue.filter('persentage', persentageFilter);
 axios.defaults.withCredentials = true;
+
+// VeeValidate3
+// 將預設規則一一導入
+Object.keys(rules).forEach((rule) => {
+  extend(rule, rules[rule]);
+});
+// 設置語系
+localize('zh_TW', TW);
+// input > provider, form > observer
+Vue.component('ValidationObserver', ValidationObserver);
+Vue.component('ValidationProvider', ValidationProvider);
+// 動態class設定
+configure({
+  classes: {
+    valid: 'is-valid',
+    invalid: 'is-invalid'
+  }
+});
 
 Vue.config.productionTip = false;
 
