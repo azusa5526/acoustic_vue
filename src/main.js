@@ -45,6 +45,7 @@ axios.defaults.withCredentials = true;
 Object.keys(rules).forEach((rule) => {
   extend(rule, rules[rule]);
 });
+
 // 設置語系
 localize('zh_TW', TW);
 // input > provider, form > observer
