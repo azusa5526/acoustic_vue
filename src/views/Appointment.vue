@@ -111,8 +111,12 @@
                       type="date"
                       placeholder="選擇日期"
                       v-model="tempAppointment.date"
-                      style="width: 100%;"
-                    ></el-date-picker>
+                      style="width: 100%"
+                      format="yyyy 年 MM 月 dd 日"
+                      value-format="yyyy-MM-dd"
+                    >
+                      ></el-date-picker
+                    >
                   </el-form-item>
 
                   <el-form-item prop="time">
@@ -124,7 +128,7 @@
                         end: '20:00'
                       }"
                       placeholder="選擇時間"
-                      style="width: 100%;"
+                      style="width: 100%"
                     >
                     </el-time-select>
                   </el-form-item>
@@ -244,8 +248,8 @@ export default {
         phone: ''
       },
       rules: {
-        date: [{ type: 'date', required: true, message: '请选择日期', trigger: 'change' }],
-        time: [{ required: true, message: '请选择时间', trigger: 'change' }]
+        date: [{ required: true, message: '請選擇日期', trigger: 'change' }],
+        time: [{ required: true, message: '請選擇時間', trigger: 'change' }]
       }
     };
   },
@@ -330,7 +334,7 @@ export default {
 };
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 /deep/ .el-input__inner {
   border-radius: 0;
 }
