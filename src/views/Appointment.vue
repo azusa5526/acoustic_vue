@@ -245,7 +245,8 @@ export default {
         time: '',
         name: '',
         email: '',
-        phone: ''
+        phone: '',
+        isConfirmed: 'unchecked'
       },
       rules: {
         date: [{ required: true, message: '請選擇日期', trigger: 'change' }],
