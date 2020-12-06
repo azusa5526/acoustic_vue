@@ -5,6 +5,7 @@ import Index from '@/views/Index';
 import Products from '@/views/Products';
 import News from '@/views/News';
 import Appointment from '@/views/Appointment';
+import CheckAppointment from '@/views/CheckAppointment';
 import SingleProduct from '@/views/SingleProduct';
 import Login from '@/views/Login';
 
@@ -45,6 +46,11 @@ const routes = [
     path: '/appointment',
     name: 'Appointment',
     component: Appointment
+  },
+  {
+    path: '/checkAppointment/:appointmentID',
+    name: 'CheckAppointment',
+    component: CheckAppointment
   },
   {
     path: '/login',

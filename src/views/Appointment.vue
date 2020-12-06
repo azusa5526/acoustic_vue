@@ -74,26 +74,6 @@
               </div>
             </validation-provider>
 
-            <!-- <div class="form-group row no-gutters align-items-center mb-12">
-              <div class="col-sm-3 col-lg-2 pr-0">
-                <label for="date">預約時間</label>
-              </div>
-              <div class="col-sm-9 col-lg-10">
-                <el-date-picker v-model="tempAppointment.date" type="date" placeholder="選擇日期">
-                </el-date-picker>
-                <el-time-select
-                  v-model="tempAppointment.time"
-                  :picker-options="{
-                    start: '13:00',
-                    step: '00:30',
-                    end: '20:00'
-                  }"
-                  placeholder="選擇時間"
-                >
-                </el-time-select>
-              </div>
-            </div> -->
-
             <el-form
               :model="tempAppointment"
               :rules="rules"
@@ -246,6 +226,7 @@ export default {
         name: '',
         email: '',
         phone: '',
+        message: '',
         isConfirmed: 'unchecked'
       },
       rules: {
@@ -290,6 +271,7 @@ export default {
             .then((response) => {
               if (response.status === 200 || response.status === 201) {
                 this.$store.commit('UPDATEMESSAGE', { message: '已提交預約', status: 'secondary' });
+                vm.$router.push(`checkAppointment/${vm.tempAppointment.id}`);
               } else {
                 this.$store.commit('UPDATEMESSAGE', { message: '提交預約失敗', status: 'danger' });
               }
@@ -297,18 +279,6 @@ export default {
         } else {
           console.log('error submit!!');
           return false;
-        }
-      });
-    },
-
-    getAppointment() {
-      const vm = this;
-      const id = '42e58b8a-2e35-46af-9543-a0173b0f8d89';
-      const api = `http://localhost:3000/appointments/${id}`;
-
-      vm.$http.get(api).then((response) => {
-        if (response.status === 200 || response.status === 201) {
-        } else {
         }
       });
     },
