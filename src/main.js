@@ -32,9 +32,13 @@ import { ValidationObserver, ValidationProvider, extend, localize, configure } f
 import TW from 'vee-validate/dist/locale/zh_TW.json';
 import * as rules from 'vee-validate/dist/rules';
 
+// VueClipboard
+import VueClipboard from 'vue-clipboard2';
+
 Vue.use(VueAwesomeSwiper);
 Vue.use(VueAxios, axios);
 Vue.use(ElementUI);
+Vue.use(VueClipboard);
 Vue.component('Loading', Loading); // 全域啟用，元件內不用一一載入
 Vue.filter('currency', currencyFilter);
 Vue.filter('persentage', persentageFilter);

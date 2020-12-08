@@ -78,16 +78,15 @@
                       </td>
                     </tr>
                     <tr>
-                      <th width="75px" class="border-right text-center">訊息</th>
-                      <td>
+                      <th width="75px" class="border-right text-center p-2">訊息</th>
+                      <td v-if="item.isConfirmed === 'unchecked'">
                         <select
                           class="form-control"
                           id="messageSelect"
                           name="訊息選擇"
                           v-model="tempMessage"
-                          :disabled="item.isConfirmed !== 'unchecked'"
                         >
-                          <option value="">--- 請選擇 ---</option>
+                          <option value="" selected="selected">--- 請選擇 ---</option>
                           <option value="預約完成，期待您的到來">
                             預約完成，期待您的到來
                           </option>
@@ -98,6 +97,9 @@
                             預約失敗，該時段預約已滿
                           </option>
                         </select>
+                      </td>
+                      <td v-else>
+                        {{ item.message }}
                       </td>
                     </tr>
                   </tbody>
@@ -154,8 +156,6 @@ export default {
     },
 
     calendarOnClick(data) {
-      // this.tempAppointment = Object.assign({}, appointment);
-      // console.log('clickdata', data);
       this.filterAppointment(data.day);
       if (this.tempAppointments.length !== 0) {
         $('#editAppointmentModal').modal('show');
