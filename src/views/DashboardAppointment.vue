@@ -25,15 +25,17 @@
               <span>編輯預約</span>
             </h5>
             <button aria-label="Close" class="close" data-dismiss="modal" type="button">
-              <span aria-hidden="true">&times;</span>
+              <span class="text-white" aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <AppointmentEditModalBody
-              v-for="item in tempAppointments"
-              :appointment="item"
-              :key="item.id"
-            ></AppointmentEditModalBody>
+            <div class="accordion" id="accordionExample">
+              <AppointmentEditModalBody
+                v-for="item in tempAppointments"
+                :appointment="item"
+                :key="item.id"
+              ></AppointmentEditModalBody>
+            </div>
           </div>
         </div>
       </div>
