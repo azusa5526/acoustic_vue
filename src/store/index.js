@@ -26,12 +26,28 @@ export default new Vuex.Store({
     productTitle: '',
     message: '',
     status: '',
-    isNotice: false
+    isNotice: false,
+    allAppointments: []
   },
 
   actions: {
     updateLoading(context, status) {
       context.commit('LOADING', status);
+    },
+
+    getAllAppointments(context) {
+      const api = 'http://localhost:3000/appointments/';
+      context.dispatch('updateLoading', true);
+
+      axios.get(api).then((response) => {
+        if (response.status === 200 || response.status === 201) {
+          context.dispatch('updateLoading', false);
+          context.commit('ALLAPPOINTMENTS', response.data);
+        } else {
+          context.dispatch('updateLoading', false);
+          context.commit('UPDATEMESSAGE', { message: '取得全部預約資料失敗', status: 'danger' });
+        }
+      });
     },
 
     getAllProducts(context) {
@@ -108,6 +124,10 @@ export default new Vuex.Store({
   mutations: {
     LOADING(state, status) {
       state.isLoading = status;
+    },
+
+    ALLAPPOINTMENTS(state, axiosData) {
+      state.allAppointments = axiosData;
     },
 
     ALLPRODUCTS(state, axiosData) {
@@ -266,6 +286,10 @@ export default new Vuex.Store({
 
     isNotice(state) {
       return state.isNotice;
+    },
+
+    allAppointments(state) {
+      return state.allAppointments;
     }
   },
 
