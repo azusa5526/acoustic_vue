@@ -120,14 +120,10 @@ export default {
           if (response.status === 200 || response.status === 201) {
             vm.getAllAppointments();
           } else {
-            console.log('fail upload');
+            this.$store.commit('UPDATEMESSAGE', { message: '修改預約失敗', status: 'danger' });
           }
         });
     }
-  },
-
-  created() {
-    console.log(this.appointment);
   }
 };
 </script>

@@ -5,7 +5,6 @@ import store from './store';
 import 'jquery';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 
-// Bootstrap4 Toggle
 import 'bootstrap4-toggle/js/bootstrap4-toggle.min.js';
 import 'bootstrap4-toggle/css/bootstrap4-toggle.min.css';
 
@@ -19,43 +18,33 @@ import 'swiper/swiper-bundle.css';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 
-// ElementUI
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
-// filters
 import currencyFilter from './filters/currency';
 import persentageFilter from './filters/persentage';
 
-// VeeValidate3
 import { ValidationObserver, ValidationProvider, extend, localize, configure } from 'vee-validate';
 import TW from 'vee-validate/dist/locale/zh_TW.json';
 import * as rules from 'vee-validate/dist/rules';
 
-// VueClipboard
 import VueClipboard from 'vue-clipboard2';
 
 Vue.use(VueAwesomeSwiper);
 Vue.use(VueAxios, axios);
 Vue.use(ElementUI);
 Vue.use(VueClipboard);
-Vue.component('Loading', Loading); // 全域啟用，元件內不用一一載入
+Vue.component('Loading', Loading);
 Vue.filter('currency', currencyFilter);
 Vue.filter('persentage', persentageFilter);
 axios.defaults.withCredentials = true;
 
-// VeeValidate3
-// 將預設規則一一導入
 Object.keys(rules).forEach((rule) => {
   extend(rule, rules[rule]);
 });
-
-// 設置語系
 localize('zh_TW', TW);
-// input > provider, form > observer
 Vue.component('ValidationObserver', ValidationObserver);
 Vue.component('ValidationProvider', ValidationProvider);
-// 動態class設定
 configure({
   classes: {
     valid: 'is-valid',

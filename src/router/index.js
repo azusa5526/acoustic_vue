@@ -7,7 +7,6 @@ import News from '@/views/News';
 import Appointment from '@/views/Appointment';
 import CheckAppointment from '@/views/CheckAppointment';
 import SingleProduct from '@/views/SingleProduct';
-import Login from '@/views/Login';
 
 import Dashboard from '@/views/Dashboard';
 import DashboardProducts from '@/views/DashboardProducts';
@@ -50,11 +49,6 @@ const routes = [
     path: '/checkAppointment/:appointmentID',
     name: 'CheckAppointment',
     component: CheckAppointment
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    component: Login
   },
   {
     path: '/dashboard',

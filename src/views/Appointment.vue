@@ -285,7 +285,7 @@ export default {
               }
             });
         } else {
-          console.log('error submit!!');
+          this.$store.commit('UPDATEMESSAGE', { message: '提交預約失敗', status: 'danger' });
           return false;
         }
       });
