@@ -6,7 +6,7 @@
     <ul class="nav nav-pills flex-column text-left">
       <li class="nav-item mb-3">
         <router-link class="nav-link text-white py-4" to="/dashboard/products"
-          >編輯產品</router-link
+          >產品管理</router-link
         >
       </li>
       <li class="nav-item mb-3">

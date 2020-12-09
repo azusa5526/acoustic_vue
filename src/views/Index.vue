@@ -9,8 +9,8 @@
           <div
             class="slide__title d-flex d-md-block flex-column justify-content-center align-items-center py-7 py-md-5 px-10"
           >
-            <h3 class="text-secondary font-weight-light">LS50 Wireless II</h3>
-            <h6 class="text-secondary font-weight-light text-center">Every note. Every word. Every detail.</h6>
+            <h2 class="text-secondary font-weight-light">LS50 Wireless II</h2>
+            <h5 class="text-secondary font-weight-light text-center">Every note. Every word. Every detail.</h5>
           </div>
         </swiper-slide>
         <swiper-slide>
@@ -18,8 +18,8 @@
           <div
             class="slide__title d-flex d-md-block flex-column justify-content-center align-items-center py-7 py-md-5 px-10"
           >
-            <h3 class="text-secondary font-weight-light">B&W 700 Series</h3>
-            <h6 class="text-secondary font-weight-light text-center">Crafted. Honed. Perfected.</h6>
+            <h2 class="text-secondary font-weight-light">B&W 700 Series</h2>
+            <h5 class="text-secondary font-weight-light text-center">Crafted. Honed. Perfected.</h5>
           </div>
         </swiper-slide>
         <swiper-slide>
@@ -27,8 +27,8 @@
           <div
             class="slide__title d-flex d-md-block flex-column justify-content-center align-items-center py-7 py-md-5 px-10"
           >
-            <h3 class="text-secondary font-weight-light">KEF Q750</h3>
-            <h6 class="text-secondary font-weight-light text-center">Ebony and Ivory Rhapsody</h6>
+            <h2 class="text-secondary font-weight-light">KEF Q750</h2>
+            <h5 class="text-secondary font-weight-light text-center">Ebony and Ivory Rhapsody</h5>
           </div>
         </swiper-slide>
       </swiper>
