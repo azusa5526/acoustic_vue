@@ -94,6 +94,7 @@
                       style="width: 100%"
                       format="yyyy 年 MM 月 dd 日"
                       value-format="yyyy-MM-dd"
+                      :picker-options="pickerOptions"
                     >
                       ></el-date-picker
                     >
@@ -232,6 +233,13 @@ export default {
       rules: {
         date: [{ required: true, message: '請選擇日期', trigger: 'change' }],
         time: [{ required: true, message: '請選擇時間', trigger: 'change' }]
+      },
+      pickerOptions: {
+        disabledDate(time) {
+          const now = Date.now() + 8.64e7 * 2;
+          const end = Date.now() + 8.67e7 * 16;
+          return time.getTime() < now - 8.64e7 || time.getTime() > end - 8.64e7;
+        }
       }
     };
   },

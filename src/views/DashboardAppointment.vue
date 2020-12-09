@@ -3,9 +3,7 @@
     <el-calendar v-model="value" class="m-4">
       <template v-slot:dateCell="{ data }">
         <div class="div-Calendar" @click="calendarOnClick(data)">
-          <p :class="data.isSelected ? 'is-selected' : ''">
-            {{ data.day.split('-').slice(1).join('-') }} {{ data.isSelected ? '✔️' : '' }}
-          </p>
+          <CalenderText :date="data.day"></CalenderText>
         </div>
       </template>
     </el-calendar>
@@ -46,28 +44,21 @@
 <script>
 import $ from 'jquery';
 import AppointmentEditModalBody from '@/components/AppointmentEditModalBody';
+import CalenderText from '@/components/CalenderText';
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'DashboardAppointment',
   components: {
-    AppointmentEditModalBody
+    AppointmentEditModalBody,
+    CalenderText
   },
 
   data() {
     return {
       value: new Date(),
-      ISOValue: '',
-      tempAppointments: [],
-      tempAppointment: {},
-      tempMessage: ''
+      tempAppointments: []
     };
-  },
-
-  watch: {
-    value() {
-      this.ISOValue = this.value.toISOString();
-    }
   },
 
   methods: {
@@ -90,29 +81,16 @@ export default {
           item.date.split('-').slice(2)[0].indexOf(date.split('-').slice(2)[0]) !== -1
         );
       });
-    },
-
-    uploadAppointment(appointmentID, decide) {
-      const vm = this;
-      const api = `http://localhost:3000/appointments/${appointmentID}`;
-
-      vm.$http
-        .patch(api, {
-          isConfirmed: decide,
-          message: vm.tempMessage
-        })
-        .then((response) => {
-          if (response.status === 200 || response.status === 201) {
-            vm.getAllAppointments();
-          } else {
-            console.log('fail upload');
-          }
-        });
     }
   },
 
   computed: {
     ...mapGetters(['allAppointments'])
+  },
+
+  mounted() {
+    document.querySelector('.el-button-group>.el-button:first-child>span').innerText = '上個月';
+    document.querySelector('.el-button-group>.el-button:last-child>span').innerText = '下個月';
   },
 
   created() {

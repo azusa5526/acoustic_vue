@@ -13,9 +13,6 @@
         <router-link class="nav-link text-white py-4" to="/dashboard/appointment">預約管理</router-link>
       </li>
       <li class="nav-item mb-3">
-        <router-link class="nav-link text-white py-4" to="/dashboard/coupon">折價管理</router-link>
-      </li>
-      <li class="nav-item mb-3">
         <router-link class="nav-link text-white py-4" to="/dashboard/others">其餘功能</router-link>
       </li>
       <li class="nav-item mb-3">

@@ -23,6 +23,7 @@
                 name="預約ID"
                 class="form-control"
                 placeholder="請輸入預約ID"
+                autocomplete="off"
               />
               <span class="text-danger">{{ errors[0] }}</span>
               <button

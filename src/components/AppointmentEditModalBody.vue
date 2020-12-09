@@ -62,7 +62,7 @@
                     name="訊息選擇"
                     v-model="tempMessage"
                   >
-                    <option value="預約完成，期待您的到來">接受預約</option>
+                    <option value="預約成功，期待您的到來">接受預約</option>
                     <option value="預約失敗，器材或空間不足">
                       婉拒預約 -> 原由：器材或空間不足
                     </option>

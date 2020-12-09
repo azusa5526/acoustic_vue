@@ -12,7 +12,6 @@ import Login from '@/views/Login';
 import Dashboard from '@/views/Dashboard';
 import DashboardProducts from '@/views/DashboardProducts';
 import DashboardAppointment from '@/views/DashboardAppointment';
-import DashboardCoupon from '@/views/DashboardCoupon';
 import DashboardOthers from '@/views/DashboardOthers';
 
 Vue.use(VueRouter);
@@ -72,12 +71,6 @@ const routes = [
         path: 'appointment',
         name: 'DashboardAppointment',
         component: DashboardAppointment,
-        meta: { requiresAuth: true }
-      },
-      {
-        path: 'coupon',
-        name: 'DashboardCoupon',
-        component: DashboardCoupon,
         meta: { requiresAuth: true }
       },
       {
