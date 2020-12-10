@@ -266,7 +266,7 @@ export default {
     sendAppointment(formName) {
       const vm = this;
       vm.tempAppointment.id = vm.generateUUID();
-      const api = 'http://localhost:3000/appointments/';
+      const api = `${process.env.VUE_APP_HEROKU_API_PATH}/appointments`;
 
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -316,5 +316,6 @@ export default {
 <style lang="scss" scoped>
 /deep/ .el-input__inner {
   border-radius: 0;
+  border: 1px solid #ced4da;
 }
 </style>

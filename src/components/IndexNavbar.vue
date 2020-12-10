@@ -291,7 +291,7 @@ export default {
 
     queryAppointment() {
       const vm = this;
-      const api = `http://localhost:3000/appointments/${vm.queryString}`;
+      const api = `${process.env.VUE_APP_HEROKU_API_PATH}/appointments/${vm.queryString}`;
       vm.$store.dispatch('updateLoading', true);
 
       vm.$http

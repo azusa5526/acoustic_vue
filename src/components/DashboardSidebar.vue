@@ -39,6 +39,9 @@ export default {
       vm.$http.post(api).then((response) => {
         if (response.data.success) {
           vm.$router.push('/');
+          this.$store.commit('UPDATEMESSAGE', { message: '已登出後台系統', status: 'secondary' });
+        } else {
+          this.$store.commit('UPDATEMESSAGE', { message: '登出後台系統失敗', status: 'danger' });
         }
       });
     }

@@ -96,7 +96,7 @@ export default {
   methods: {
     getAppointment() {
       const vm = this;
-      const api = `http://localhost:3000/appointments/${vm.appointmentID}`;
+      const api = `${process.env.VUE_APP_HEROKU_API_PATH}/appointments/${vm.appointmentID}`;
       vm.$store.dispatch('updateLoading', true);
 
       vm.$http.get(api).then((response) => {

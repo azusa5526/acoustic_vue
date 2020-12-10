@@ -36,7 +36,7 @@ export default new Vuex.Store({
     },
 
     getAllAppointments(context) {
-      const api = 'http://localhost:3000/appointments/';
+      const api = `${process.env.VUE_APP_HEROKU_API_PATH}/appointments`;
       context.dispatch('updateLoading', true);
 
       axios.get(api).then((response) => {

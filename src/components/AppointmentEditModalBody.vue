@@ -102,7 +102,7 @@ export default {
 
     uploadAppointment(appointmentID) {
       const vm = this;
-      const api = `http://localhost:3000/appointments/${appointmentID}`;
+      const api = `${process.env.VUE_APP_HEROKU_API_PATH}/appointments/${appointmentID}`;
       let decide = '';
 
       if (this.tempMessage.split('，')[0] === '預約成功') {
