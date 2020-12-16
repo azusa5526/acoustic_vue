@@ -25,9 +25,18 @@
         </div>
       </div>
 
-      <div :id="['demo' + appointment.id]" aria-labelledby="headingOne" data-parent="#accordionExample" class="collapse table mb-0">
+      <div
+        :id="['demo' + appointment.id]"
+        aria-labelledby="headingOne"
+        data-parent="#accordionExample"
+        class="collapse table mb-0"
+      >
         <table class="w-100">
           <tbody>
+            <tr>
+              <th width="75px" class="border-right text-center p-2">ID</th>
+              <td class="p-2 pl-5">{{ appointment.id }}</td>
+            </tr>
             <tr>
               <th width="75px" class="border-right text-center p-2">型號</th>
               <td class="p-2 pl-5">{{ appointment.title }}</td>

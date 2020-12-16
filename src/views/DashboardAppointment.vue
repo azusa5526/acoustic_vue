@@ -73,7 +73,6 @@ export default {
 
     filterAppointment(date) {
       const vm = this;
-
       vm.tempAppointments = vm.allAppointments.filter(function (item) {
         return (
           item.date.split('-').slice(0)[0].indexOf(date.split('-').slice(0)[0]) !== -1 &&

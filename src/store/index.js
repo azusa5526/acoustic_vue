@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
 import router from '@/router';
+import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex);
 
@@ -29,6 +30,8 @@ export default new Vuex.Store({
     isNotice: false,
     allAppointments: []
   },
+
+  plugins: [createPersistedState()],
 
   actions: {
     updateLoading(context, status) {
@@ -290,6 +293,12 @@ export default new Vuex.Store({
 
     allAppointments(state) {
       return state.allAppointments;
+    },
+
+    filterAppointmentResult: (state) => (date) => {
+      return state.allAppointments.some(function (item) {
+        return item.date === date;
+      });
     }
   },
 

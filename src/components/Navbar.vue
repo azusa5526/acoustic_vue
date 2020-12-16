@@ -246,6 +246,7 @@ export default {
         })
         .catch((error) => {
           vm.$store.dispatch('updateLoading', false);
+          vm.queryString = '';
           console.log('error', error);
           this.$store.commit('UPDATEMESSAGE', {
             message: '未查詢到該預約，請確認預約ID號碼',

@@ -66,8 +66,9 @@ export default {
 .message-alert {
   position: fixed;
   max-width: 50%;
-  bottom: 20px;
-  right: 30px;
+  min-width: 250px;
+  bottom: 15px;
+  right: 20px;
   z-index: 1100;
 }
 
