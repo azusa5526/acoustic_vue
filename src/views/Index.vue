@@ -10,7 +10,9 @@
             class="slide__title d-flex d-md-block flex-column justify-content-center align-items-center py-7 py-md-5 px-10"
           >
             <h2 class="text-secondary font-weight-light">LS50 Wireless II</h2>
-            <h5 class="text-secondary font-weight-light text-center">Every note. Every word. Every detail.</h5>
+            <h5 class="text-secondary font-weight-light text-center">
+              Every note. Every word. Every detail.
+            </h5>
           </div>
         </swiper-slide>
         <swiper-slide>
@@ -304,6 +306,11 @@ export default {
     swiper2() {
       return this.$refs.newProductsSwiper.$swiper;
     }
+  },
+
+  mounted() {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
   }
 };
 </script>
