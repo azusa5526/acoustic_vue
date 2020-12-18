@@ -5,6 +5,10 @@
 <script>
 export default {
   name: 'DashboardOthers',
-  components: {}
+  components: {},
+
+  created() {
+    // this.$store.dispatch('updateLoading', true);
+  }
 };
 </script>

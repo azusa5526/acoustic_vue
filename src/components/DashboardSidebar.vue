@@ -37,13 +37,16 @@ export default {
     logout() {
       const vm = this;
       const api = `${process.env.VUE_APP_API_PATH}/logout`;
+      vm.$store.dispatch('updateLoading', true);
 
       vm.$http.post(api).then((response) => {
         if (response.data.success) {
           vm.$router.push('/');
           this.$store.commit('UPDATEMESSAGE', { message: '已登出後台系統', status: 'secondary' });
+          vm.$store.dispatch('updateLoading', false);
         } else {
           this.$store.commit('UPDATEMESSAGE', { message: '登出後台系統失敗', status: 'danger' });
+          vm.$store.dispatch('updateLoading', false);
         }
       });
     }

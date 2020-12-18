@@ -30,10 +30,22 @@ import * as rules from 'vee-validate/dist/rules';
 
 import VueClipboard from 'vue-clipboard2';
 
+import animated from 'animate.css';
+import WOW from 'wow.js';
+
 Vue.use(VueAwesomeSwiper);
 Vue.use(VueAxios, axios);
 Vue.use(ElementUI);
 Vue.use(VueClipboard);
+Vue.use(animated);
+new WOW({
+  boxClass: 'wow',
+  animateClass: 'animated',
+  offset: 50,
+  mobile: true,
+  live: true,
+  resetAnimation: true
+}).init();
 Vue.component('Loading', Loading);
 Vue.filter('currency', currencyFilter);
 Vue.filter('persentage', persentageFilter);

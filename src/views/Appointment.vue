@@ -191,6 +191,7 @@
               type="submit"
               :disabled="invalid"
               class="offset-sm-3 offset-lg-2 btn btn-primary px-8"
+              @click="updateLoading(true)"
             >
               送出預約申請
             </button>
@@ -206,6 +207,7 @@
 <script>
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'Appointment',
@@ -245,6 +247,8 @@ export default {
   },
 
   methods: {
+    ...mapActions(['updateLoading']),
+
     getSingleProduct() {
       const vm = this;
       const api = `${process.env.VUE_APP_API_PATH}/api/${process.env.VUE_APP_CUSTOM_PATH}/product/${vm.productID}`;

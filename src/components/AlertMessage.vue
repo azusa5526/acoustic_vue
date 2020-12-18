@@ -3,8 +3,8 @@
     <div
       :class="'alert-' + item.status"
       :key="i"
-      class="alert alert-dismissible"
-      style="border: #EAEAEA 1px solid"
+      class="alert alert-dismissible animate__animated animate__fadeInRight"
+      style="border: #EAEAEA 1px solid; animation-duration: .5s;"
       v-for="(item, i) in messages"
     >
       {{ item.message }}

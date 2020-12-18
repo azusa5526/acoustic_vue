@@ -155,7 +155,9 @@
               </div>
 
               <div
-                class="cardHover--scale col-sm-6 col-xl-4 mb-6"
+                class="cardHover--scale col-sm-6 col-xl-4 mb-6 wow animate__animated"
+                :class="{ animate__fadeInUp: isLoading === false }"
+                style="animation-duration: .5s"
                 v-for="item in pagedProducts"
                 :key="item.id"
               >
@@ -257,7 +259,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['pagedProducts'])
+    ...mapGetters(['pagedProducts', 'isLoading'])
   },
 
   created() {
@@ -270,3 +272,23 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 8%, 0);
+    transform: translate3d(0, 8%, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+.animate__fadeInUp {
+  -webkit-animation-name: fadeInUp;
+  animation-name: fadeInUp;
+}
+</style>
