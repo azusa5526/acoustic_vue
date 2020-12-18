@@ -1,9 +1,8 @@
 <template>
-  <div class="d-flex flex-column vh-100">
+  <div class="wrapper">
     <Navbar></Navbar>
-
-    <div class="content">
-      <div class="productMain container mb-12">
+    <main class="singleProduct">
+      <div class="container mb-12">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb px-0 my-md-5">
             <li class="breadcrumb-item"><router-link to="/index">首頁</router-link></li>
@@ -23,10 +22,10 @@
 
           <div class="col-md-5">
             <h3 class="mb-4">{{ product.title }}</h3>
-            <p class="productMain__discription font-weight-light mb-10">
+            <p class="font-weight-light mb-10">
               {{ product.description }}
             </p>
-            <div class="productMain__price pb-8 mb-6 border-bottom">
+            <div class="pb-8 mb-6 border-bottom">
               <del class="text-gray">NTD {{ product.origin_price | currency }}</del>
               <h4 class="text-primary">NTD {{ product.price | currency }}</h4>
               <small class="text-gray"
@@ -44,7 +43,7 @@
         </div>
       </div>
 
-      <div class="productTabs container mb-12">
+      <div class="container mb-12">
         <ul class="row no-gutters mb-6 nav nav-pills text-center">
           <li class="nav-item col-md-4">
             <a class="nav-link border active" href="#">產品介紹</a>
@@ -66,7 +65,7 @@
         </div>
       </div>
 
-      <div class="productRecommanded container-fluid bg-light">
+      <div class="container-fluid bg-light">
         <div class="container">
           <h6 class="text-center font-weight-light py-11 mb-0">RECOMMAND</h6>
           <swiper class="pb-11" ref="newProductsSwiper" :options="newProductsSwiperOptions">
@@ -145,7 +144,7 @@
           </swiper>
         </div>
       </div>
-    </div>
+    </main>
 
     <Footer></Footer>
   </div>

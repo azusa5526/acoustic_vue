@@ -1,16 +1,22 @@
 <template>
-  <div class="d-flex flex-column vh-100">
+  <div class="wrapper">
     <Navbar></Navbar>
-
-    <div class="content">
-      <div class="checkAppointment container mb-12">
+    <main class="checkAppointment">
+      <div class="container mb-12">
         <div class="text-center py-6 py-md-8">
           <h2>預約資料</h2>
         </div>
 
         <div class="row justify-content-center">
           <div class="col-12 col-lg-6 order-2 order-lg-1">
-            <iframe frameborder="0" style="border: 0" class="bg-primary w-100" height="350px" :src="map"> </iframe>
+            <iframe
+              frameborder="0"
+              style="border: 0"
+              class="bg-primary w-100"
+              height="350px"
+              :src="map"
+            >
+            </iframe>
           </div>
           <div class="col-12 col-lg-6 order-1 order-lg-2 mb-6 mb-md-8 mb-lg-0">
             <div class="card">
@@ -61,7 +67,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </main>
 
     <Footer></Footer>
   </div>

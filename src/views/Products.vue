@@ -1,7 +1,7 @@
 <template>
-  <div class="d-flex flex-column vh-100">
+  <div class="wrapper">
     <Navbar></Navbar>
-    <div class="content">
+    <main>
       <div class="container-fluid px-15 px-md-8 px-lg-13 mb-10">
         <div class="text-center py-6 py-md-8">
           <h2>所有產品</h2>
@@ -157,7 +157,7 @@
               <div
                 class="cardHover--scale col-sm-6 col-xl-4 mb-6 wow animate__animated"
                 :class="{ animate__fadeInUp: isLoading === false }"
-                style="animation-duration: .5s"
+                style="animation-duration: 0.5s"
                 v-for="item in pagedProducts"
                 :key="item.id"
               >
@@ -187,7 +187,8 @@
           </nav>
         </div>
       </div>
-    </div>
+    </main>
+
     <Footer></Footer>
   </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer contaier-fluid bg-primary mt-auto">
+  <footer class="footer contaier-fluid bg-primary">
     <div class="container">
       <div class="row justify-content-between align-items-center">
         <div class="col-auto py-6 px-6 px-sm-9 mr-md-auto">

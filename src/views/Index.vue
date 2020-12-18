@@ -1,8 +1,7 @@
 <template>
-  <div class="index d-flex flex-column vh-100">
+  <div class="wrapper">
     <IndexNavbar></IndexNavbar>
-
-    <div class="content">
+    <main class="index">
       <swiper class="slide mb-12" ref="slideSwiper" :options="slideSwiperOptions">
         <swiper-slide>
           <img src="../assets/img/index_slide_2.png" alt="" />
@@ -242,7 +241,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </main>
 
     <Footer></Footer>
   </div>

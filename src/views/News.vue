@@ -1,9 +1,8 @@
 <template>
-  <div class="d-flex flex-column vh-100">
+  <div class="wrapper">
     <Navbar></Navbar>
-
-    <div class="content">
-      <div class="news container mb-12">
+    <main class="news">
+      <div class="container mb-12">
         <div class="text-center py-6 py-md-8">
           <h2>最新消息</h2>
         </div>
@@ -115,7 +114,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </main>
 
     <Footer></Footer>
   </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <header class="header">
     <nav class="navbar navbar-expand-md navbar-light bg-white shadowBottom">
       <h1 class="mb-0 ml-sm-6 mr-sm-10 py-3 py-sm-4 py-md-5">
         <router-link class="navbar-brand p-0" to="/">acoustic</router-link>
@@ -193,7 +193,7 @@
         </ul>
       </div>
     </nav>
-  </div>
+  </header>
 </template>
 
 <script>
