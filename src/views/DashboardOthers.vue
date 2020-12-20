@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column vh-100">DashboardOthers</div>
+  <div class="">DashboardOthers</div>
 </template>
 
 <script>
@@ -8,7 +8,6 @@ export default {
   components: {},
 
   created() {
-    // this.$store.dispatch('updateLoading', true);
   }
 };
 </script>

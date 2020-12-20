@@ -1,21 +1,36 @@
-.sidebar {
-  @include media-breakpoint-up(md) {
-    flex: 0 0 170px;
-  }
-  @include media-breakpoint-up(lg) {
-    flex: 0 0 210px;
-  }
-  @include media-breakpoint-up(xl) {
-    flex: 0 0 260px;
-  }
+$aside-show-width: 14rem;
+$aside-hide-width: 3.5rem;
 
-  .nav-link.router-link-active {
-    background-color: $white; 
-    color: $primary !important;
-    transition: .5s;
+.sidebar {
+  // .nav-link.router-link-active {
+  //   background-color: $white;
+  //   color: $primary !important;
+  //   transition: 0.5s;
+  // }
+}
+
+.dashboardNavbar {
+  height: 50px;
+}
+
+.asideContainer {
+  height: 100%;
+  width: $aside-show-width;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1001;
+  overflow: hidden;
+  &.foldSidebar {
+    width: $aside-hide-width;
   }
 }
 
-.main {
-  flex: 1;
+.mainContainer {
+  height: 100%;
+  margin-left: $aside-show-width;
+  &.expendMain {
+    margin-left: $aside-hide-width;
+  }
 }
