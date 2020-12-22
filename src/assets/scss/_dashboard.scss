@@ -1,36 +1,86 @@
 $aside-show-width: 14rem;
 $aside-hide-width: 3.5rem;
 
-.sidebar {
-  // .nav-link.router-link-active {
-  //   background-color: $white;
-  //   color: $primary !important;
-  //   transition: 0.5s;
-  // }
+.dashboard.mobile {
+  .asideContainer {
+    //default side close
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1001;
+    overflow: hidden;
+  }
+  .asideContainer.sidebarOpened {
+    height: 100%;
+    width: $aside-show-width;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1001;
+    overflow: hidden;
+  }
+
+  .mainContainer {
+    //default side close
+    margin-left: 0;
+
+    .dashboardNavbar {
+      //default side close
+      margin-left: 0;
+    }
+    .dashboardNavbar.sidebarOpened {
+      margin-left: $aside-show-width;
+    }
+  }
+}
+
+.dashboard.desktop {
+  .asideContainer.sidebarOpened {
+    //default side open
+    height: 100%;
+    width: $aside-show-width;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1001;
+    overflow: hidden;
+  }
+  .asideContainer {
+    height: 100%;
+    width: $aside-hide-width;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1001;
+    overflow: hidden;
+  }
+
+  .mainContainer.sidebarOpened {
+    //default side open
+    margin-left: $aside-show-width;
+
+    .dashboardNavbar {
+      //default side open
+      height: 50px;
+      margin-left: 0;
+    }
+  }
+
+  .mainContainer {
+    margin-left: $aside-hide-width;
+  }
 }
 
 .dashboardNavbar {
   height: 50px;
-}
 
-.asideContainer {
-  height: 100%;
-  width: $aside-show-width;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1001;
-  overflow: hidden;
-  &.foldSidebar {
-    width: $aside-hide-width;
-  }
-}
-
-.mainContainer {
-  height: 100%;
-  margin-left: $aside-show-width;
-  &.expendMain {
-    margin-left: $aside-hide-width;
+  .icon.sidebarOpened {
+    transform: rotateY(180deg);
   }
 }

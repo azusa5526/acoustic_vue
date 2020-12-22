@@ -1,10 +1,19 @@
 <template>
-  <div class="">
-    <div class="asideContainer transition" :class="{ foldSidebar: !sidebarStatus }">
+  <div
+    class="dashboard"
+    :class="{ mobile: deviceStatus === 'mobile', desktop: deviceStatus === 'desktop' }"
+  >
+    <div
+      :class="{ sidebarOpened: sidebarStatus }"
+      class="asideContainer transition"
+    >
       <DashboardSidebar></DashboardSidebar>
     </div>
 
-    <div class="mainContainer transition" :class="{ expendMain: !sidebarStatus }">
+    <div
+      class="mainContainer transition"
+      :class="{ sidebarOpened: sidebarStatus }"
+    >
       <DashboardNavbar></DashboardNavbar>
       <router-view></router-view>
     </div>
@@ -15,6 +24,7 @@
 import { mapGetters } from 'vuex';
 import DashboardSidebar from '@/components/DashboardSidebar';
 import DashboardNavbar from '@/components/DashboardNavbar';
+import ResizeMixin from '@/mixin/resizeHandler';
 
 export default {
   name: 'Dashboard',
@@ -22,13 +32,14 @@ export default {
     DashboardSidebar,
     DashboardNavbar
   },
+  mixins: [ResizeMixin],
 
   data() {
     return {};
   },
 
   computed: {
-    ...mapGetters('dashboardLayout', ['sidebarStatus'])
+    ...mapGetters('dashboardLayout', ['sidebarStatus', 'deviceStatus'])
   },
 
   created() {

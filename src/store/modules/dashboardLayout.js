@@ -27,6 +27,9 @@ export default {
   getters: {
     sidebarStatus(state) {
       return state.sidebar.opened;
+    },
+    deviceStatus(state) {
+      return state.device;
     }
   }
 };

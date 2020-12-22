@@ -1,6 +1,6 @@
 <template>
   <div class="dashboardProducts mx-4 py-4">
-    <div class="d-flex flex-column flex-sm-row align-items-end flex-wrap bg-white mb-3 p-4">
+    <div class="d-flex flex-column flex-sm-row align-items-end flex-wrap bg-white mb-3 py-2 py-md-4 px-md-4">
       <div class="input-group mr-4 mb-3 mb-sm-0 flex-grow">
         <div class="dropdown mb-sm-0">
           <button
@@ -74,8 +74,8 @@
       </button>
     </div>
 
-    <div class="px-4">
-      <table class="table-sm mb-3 test bg-white w-100">
+    <div class="px-md-4">
+      <table class="table-sm mb-3 test bg-white border w-100">
         <thead>
           <tr class="bg-white">
             <th class="d-none d-sm-table-cell">類別</th>

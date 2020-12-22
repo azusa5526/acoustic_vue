@@ -2,7 +2,7 @@
   <aside class="h-100">
     <div class="sidebar h-100 bg-primary pt-1">
       <ul class="nav nav-pills flex-column text-left">
-        <li class="nav-item">
+        <li class="nav-item" @click="hideSidebar()">
           <router-link class="nav-link text-white p-0" to="/dashboard/products"
             ><svg
               t="1608415100381"
@@ -19,10 +19,15 @@
                 p-id="34718"
                 fill="#ffffff"
               ></path></svg
-            ><span v-if="sidebarStatus" class="animate__animated animate__fadeIn" data-wow-duration=".5s">產品管理</span></router-link
+            ><span
+              v-if="sidebarStatus"
+              class="animate__animated animate__fadeIn"
+              data-wow-duration=".5s"
+              >產品管理</span
+            ></router-link
           >
         </li>
-        <li class="nav-item">
+        <li class="nav-item" @click="hideSidebar()">
           <router-link class="nav-link text-white p-0" to="/dashboard/appointment"
             ><svg
               t="1608415042122"
@@ -39,10 +44,15 @@
                 p-id="34453"
                 fill="#ffffff"
               ></path></svg
-            ><span v-if="sidebarStatus" class="animate__animated animate__fadeIn" data-wow-duration=".5s">預約管理</span></router-link
+            ><span
+              v-if="sidebarStatus"
+              class="animate__animated animate__fadeIn"
+              data-wow-duration=".5s"
+              >預約管理</span
+            ></router-link
           >
         </li>
-        <li class="nav-item">
+        <li class="nav-item" @click="hideSidebar()">
           <router-link class="nav-link text-white p-0" to="/dashboard/others"
             ><svg
               t="1608412781174"
@@ -59,7 +69,12 @@
                 p-id="34120"
                 fill="#ffffff"
               ></path></svg
-            ><span v-if="sidebarStatus" class="animate__animated animate__fadeIn" data-wow-duration=".5s">其餘功能</span></router-link
+            ><span
+              v-if="sidebarStatus"
+              class="animate__animated animate__fadeIn"
+              data-wow-duration=".5s"
+              >其餘功能</span
+            ></router-link
           >
         </li>
       </ul>
@@ -68,7 +83,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 export default {
   name: 'DashboardSidebar',
   components: {},
@@ -78,6 +93,8 @@ export default {
   },
 
   methods: {
+    ...mapActions('dashboardLayout', ['toggleSidebar']),
+
     logout() {
       const vm = this;
       const api = `${process.env.VUE_APP_API_PATH}/logout`;
@@ -93,11 +110,20 @@ export default {
           vm.$store.dispatch('updateLoading', false);
         }
       });
+    },
+
+    hideSidebar() {
+      if (this.sidebarStatus && this.deviceStatus === 'mobile') {
+        this.toggleSidebar();
+      }
     }
   },
 
   computed: {
-    ...mapGetters('dashboardLayout', ['sidebarStatus'])
+    ...mapGetters('dashboardLayout', ['sidebarStatus', 'deviceStatus'])
+  },
+  created() {
+    console.log(this.sidebarStatus);
   }
 };
 </script>

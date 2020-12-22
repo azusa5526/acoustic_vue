@@ -1,23 +1,26 @@
 <template>
   <header class="header">
-    <nav class="dashboardNavbar navbar navbar-light bg-white shadowBottom">
+    <nav
+      class="dashboardNavbar navbar navbar-light bg-white shadowBottom transition"
+      :class="{ sidebarOpened: sidebarStatus }"
+    >
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
           <a href="#" class="nav-link p-0" @click="toggleSidebar()">
             <svg
-              t="1608403507691"
+              t="1608589074565"
               class="icon"
+              :class="{ sidebarOpened: sidebarStatus }"
               viewBox="0 0 1024 1024"
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"
-              p-id="28023"
+              p-id="40166"
               width="32"
               height="32"
             >
               <path
-                d="M853.333333 714.666667v64H170.666667v-64h682.666666zM320 405.333333v213.333334l-149.333333-106.666667 149.333333-106.666667z m533.333333 85.333334v64H405.333333v-64h448z m0-234.666667v64H170.666667v-64h682.666666z"
-                p-id="28024"
-                fill="#515151"
+                d="M853.333333 725.034667v64H170.666667v-64h682.666666z m-149.333333-309.333334l149.333333 106.666667-149.333333 106.666667v-213.333334z m-85.333333 74.666667v64H170.666667v-64h448zM853.333333 256v64H170.666667v-64h682.666666z"
+                p-id="40167"
               ></path>
             </svg>
           </a>
@@ -31,7 +34,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 export default {
   name: 'DashboardNavbar',
   components: {},
@@ -42,6 +45,10 @@ export default {
 
   methods: {
     ...mapActions('dashboardLayout', ['toggleSidebar'])
+  },
+
+  computed: {
+    ...mapGetters('dashboardLayout', ['sidebarStatus', 'deviceStatus'])
   }
 };
 </script>
