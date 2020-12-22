@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column vh-100">
+  <div class="dashboardAppointment">
     <el-calendar v-model="value" class="m-4">
       <template v-slot:dateCell="{ data }">
         <div class="div-Calendar" @click="calendarOnClick(data)">
@@ -74,11 +74,12 @@ export default {
     filterAppointment(date) {
       const vm = this;
       vm.tempAppointments = vm.allAppointments.filter(function (item) {
-        return (
-          item.date.split('-').slice(0)[0].indexOf(date.split('-').slice(0)[0]) !== -1 &&
-          item.date.split('-').slice(1)[0].indexOf(date.split('-').slice(1)[0]) !== -1 &&
-          item.date.split('-').slice(2)[0].indexOf(date.split('-').slice(2)[0]) !== -1
-        );
+        // return (
+        //   item.date.split('-').slice(0)[0].indexOf(date.split('-').slice(0)[0]) !== -1 &&
+        //   item.date.split('-').slice(1)[0].indexOf(date.split('-').slice(1)[0]) !== -1 &&
+        //   item.date.split('-').slice(2)[0].indexOf(date.split('-').slice(2)[0]) !== -1
+        // );
+        return item.date === date;
       });
     }
   },
@@ -101,10 +102,6 @@ export default {
 <style lang="scss" scoped>
 /deep/ .el-calendar-table .el-calendar-day {
   max-height: 70px;
-}
-
-.is-selected {
-  color: red;
 }
 
 .div-Calendar {

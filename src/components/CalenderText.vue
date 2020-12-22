@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p :class="{ 'text-danger': haveAppointmentToday }">{{ date.split('-').slice(1).join('-') }}</p>
+    <p :class="{ 'text-danger font-weight-bold': haveAppointmentToday }">{{ date.split('-').slice(2).join('') }}</p>
   </div>
 </template>
 

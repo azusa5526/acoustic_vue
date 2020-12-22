@@ -1,12 +1,12 @@
 <template>
   <header class="header">
     <nav
-      class="dashboardNavbar navbar navbar-light bg-white shadowBottom transition"
+      class="dashboardNavbar navbar navbar-light bg-white shadowBottom fixed-top transition"
       :class="{ sidebarOpened: sidebarStatus }"
     >
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a href="#" class="nav-link p-0" @click="toggleSidebar()">
+          <a class="nav-link p-0" @click="toggleSidebar()">
             <svg
               t="1608589074565"
               class="icon"

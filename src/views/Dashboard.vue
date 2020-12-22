@@ -3,17 +3,12 @@
     class="dashboard"
     :class="{ mobile: deviceStatus === 'mobile', desktop: deviceStatus === 'desktop' }"
   >
-    <div
-      :class="{ sidebarOpened: sidebarStatus }"
-      class="asideContainer transition"
-    >
+    <div class="mobile-bg" v-if="deviceStatus === 'mobile' && sidebarStatus"></div>
+    <div :class="{ sidebarOpened: sidebarStatus }" class="asideContainer transition">
       <DashboardSidebar></DashboardSidebar>
     </div>
 
-    <div
-      class="mainContainer transition"
-      :class="{ sidebarOpened: sidebarStatus }"
-    >
+    <div class="mainContainer transition" :class="{ sidebarOpened: sidebarStatus }">
       <DashboardNavbar></DashboardNavbar>
       <router-view></router-view>
     </div>
