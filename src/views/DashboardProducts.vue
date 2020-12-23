@@ -483,6 +483,7 @@ export default {
 
   created() {
     this.getAllProducts();
+    this.$store.dispatch('changePageSize', 12);
   },
 
   destroyed() {
