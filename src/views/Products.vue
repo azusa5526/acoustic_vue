@@ -219,26 +219,26 @@ export default {
   },
 
   methods: {
-    ...mapActions(['getActivedProducts']),
+    ...mapActions('products', ['getActivedProducts']),
 
     getSingleProduct(id) {
-      this.$store.dispatch('getSingleProduct', id);
+      this.$store.dispatch('products/getSingleProduct', id);
     },
 
     changeCategoryTag() {
-      this.$store.commit('CATEGORYTAG', this.filterTag);
+      this.$store.commit('products/CATEGORYTAG', this.filterTag);
       this.filterProducts();
     },
 
     changePriceLimit() {
       const minPrice = this.minPrice;
       const maxPrice = this.maxPrice;
-      this.$store.commit('PRICELIMIT', { minPrice, maxPrice });
+      this.$store.commit('products/PRICELIMIT', { minPrice, maxPrice });
       this.filterProducts();
     },
 
     filterProducts() {
-      this.$store.dispatch('filterProducts');
+      this.$store.dispatch('products/filterProducts');
     },
 
     clearFilters() {
@@ -251,21 +251,22 @@ export default {
     },
 
     sortProducts(sortTarget, isAscending) {
-      this.$store.dispatch('sortProducts', { sortTarget, isAscending });
+      this.$store.dispatch('products/sortProducts', { sortTarget, isAscending });
     },
 
     changePageSize(pageSize) {
-      this.$store.dispatch('changePageSize', pageSize);
+      this.$store.dispatch('products/changePageSize', pageSize);
     }
   },
 
   computed: {
-    ...mapGetters(['pagedProducts', 'isLoading'])
+    ...mapGetters('products', ['pagedProducts']),
+    ...mapGetters(['isLoading'])
   },
 
   created() {
     this.getActivedProducts();
-    this.$store.dispatch('changePageSize', 6);
+    this.$store.dispatch('products/changePageSize', 6);
   },
 
   destroyed() {

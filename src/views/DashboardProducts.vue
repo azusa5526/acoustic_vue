@@ -347,15 +347,15 @@ export default {
   },
 
   methods: {
-    ...mapActions(['getAllProducts']),
+    ...mapActions('products', ['getAllProducts']),
 
     changeCategoryTag() {
-      this.$store.commit('CATEGORYTAG', this.categoryTag);
+      this.$store.commit('products/CATEGORYTAG', this.categoryTag);
       this.filterProducts();
     },
 
     changeSearchTitle() {
-      this.$store.commit('TITLETAG', this.searchTitle);
+      this.$store.commit('products/TITLETAG', this.searchTitle);
       this.filterProducts();
     },
 
@@ -367,7 +367,7 @@ export default {
     },
 
     filterProducts() {
-      this.$store.dispatch('filterProducts');
+      this.$store.dispatch('products/filterProducts');
     },
 
     openProductModal(isNew, item) {
@@ -478,12 +478,12 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['allProducts', 'pagedProducts'])
+    ...mapGetters('products', ['allProducts', 'pagedProducts'])
   },
 
   created() {
     this.getAllProducts();
-    this.$store.dispatch('changePageSize', 12);
+    this.$store.dispatch('products/changePageSize', 12);
   },
 
   destroyed() {

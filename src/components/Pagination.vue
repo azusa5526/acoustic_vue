@@ -45,12 +45,12 @@ export default {
 
   methods: {
     changePage(targetPage) {
-      this.$store.commit('PAGINATIONCOUNTER', targetPage);
+      this.$store.commit('products/PAGINATIONCOUNTER', targetPage);
     }
   },
 
   computed: {
-    ...mapGetters(['pagination'])
+    ...mapGetters('products', ['pagination'])
   }
 };
 </script>
