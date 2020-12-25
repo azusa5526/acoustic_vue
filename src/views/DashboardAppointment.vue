@@ -4,7 +4,7 @@
       <div class="col-lg-7 mb-4 mb-lg-0">
         <el-calendar v-model="value">
           <template v-slot:dateCell="{ data }">
-            <div class="div-Calendar" @click="calendarOnClick(data)">
+            <div class="div-Calendar" @click="filterAppointment(data.day)">
               <CalenderText :date="data.day"></CalenderText>
             </div>
           </template>
@@ -29,7 +29,7 @@
 <script>
 import AppointmentEditModalBody from '@/components/AppointmentEditModalBody';
 import CalenderText from '@/components/CalenderText';
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'DashboardAppointment',
@@ -46,12 +46,6 @@ export default {
   },
 
   methods: {
-    ...mapActions(['getAllAppointments']),
-
-    calendarOnClick(data) {
-      this.filterAppointment(data.day);
-    },
-
     filterAppointment(date) {
       const vm = this;
       vm.tempAppointments = vm.allAppointments.filter(function (item) {
@@ -61,7 +55,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['allAppointments'])
+    ...mapGetters('appointments', ['allAppointments'])
   },
 
   mounted() {
@@ -70,7 +64,7 @@ export default {
   },
 
   created() {
-    this.getAllAppointments();
+    this.$store.dispatch('appointments/getAllAppointments');
   }
 };
 </script>
