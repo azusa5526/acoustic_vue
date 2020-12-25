@@ -1,39 +1,24 @@
 <template>
-  <div class="dashboardAppointment">
-    <el-calendar v-model="value" class="m-4">
-      <template v-slot:dateCell="{ data }">
-        <div class="div-Calendar" @click="calendarOnClick(data)">
-          <CalenderText :date="data.day"></CalenderText>
-        </div>
-      </template>
-    </el-calendar>
-
-    <div
-      aria-hidden="true"
-      aria-labelledby="exampleModalLabel"
-      class="modal fade"
-      id="editAppointmentModal"
-      role="dialog"
-      tabindex="-1"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content border-0">
-          <div class="modal-header bg-primary text-white">
-            <h5 class="modal-title" id="exampleModalLabel">
-              <span>編輯預約</span>
-            </h5>
-            <button aria-label="Close" class="close" data-dismiss="modal" type="button">
-              <span class="text-white" aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="accordion" id="accordionExample">
-              <AppointmentEditModalBody
-                v-for="item in tempAppointments"
-                :appointment="item"
-                :key="item.id"
-              ></AppointmentEditModalBody>
+  <div class="dashboardAppointment container-fluid">
+    <div class="row">
+      <div class="col-lg-7 mb-4 mb-lg-0">
+        <el-calendar v-model="value">
+          <template v-slot:dateCell="{ data }">
+            <div class="div-Calendar" @click="calendarOnClick(data)">
+              <CalenderText :date="data.day"></CalenderText>
             </div>
+          </template>
+        </el-calendar>
+      </div>
+      <div class="col-lg-5">
+        <div class="card border-0">
+          <div class="card-header bg-primary text-secondary">編輯列表</div>
+          <div class="card-body p-0 pt-3" id="appointmentInfo">
+            <AppointmentEditModalBody
+              v-for="item in tempAppointments"
+              :appointment="item"
+              :key="item.id"
+            ></AppointmentEditModalBody>
           </div>
         </div>
       </div>
@@ -42,7 +27,6 @@
 </template>
 
 <script>
-import $ from 'jquery';
 import AppointmentEditModalBody from '@/components/AppointmentEditModalBody';
 import CalenderText from '@/components/CalenderText';
 import { mapGetters, mapActions } from 'vuex';
@@ -66,19 +50,11 @@ export default {
 
     calendarOnClick(data) {
       this.filterAppointment(data.day);
-      if (this.tempAppointments.length !== 0) {
-        $('#editAppointmentModal').modal('show');
-      }
     },
 
     filterAppointment(date) {
       const vm = this;
       vm.tempAppointments = vm.allAppointments.filter(function (item) {
-        // return (
-        //   item.date.split('-').slice(0)[0].indexOf(date.split('-').slice(0)[0]) !== -1 &&
-        //   item.date.split('-').slice(1)[0].indexOf(date.split('-').slice(1)[0]) !== -1 &&
-        //   item.date.split('-').slice(2)[0].indexOf(date.split('-').slice(2)[0]) !== -1
-        // );
         return item.date === date;
       });
     }
@@ -101,7 +77,23 @@ export default {
 
 <style lang="scss" scoped>
 /deep/ .el-calendar-table .el-calendar-day {
-  max-height: 70px;
+  max-height: 40px;
+
+  @media screen and (min-width: 768px) {
+    max-height: 60px;
+  }
+  @media screen and (min-width: 992px) {
+    max-height: 80px;
+  }
+}
+
+/deep/ .el-calendar__header {
+  padding: 0;
+  padding-bottom: 12px;
+}
+
+/deep/ .el-calendar__body {
+  padding: 0;
 }
 
 .div-Calendar {
