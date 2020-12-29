@@ -1,5 +1,8 @@
 <template>
-  <div class="card mb-3 border animate__animated animate__fadeInUp" style="animation-duration: .5s">
+  <div
+    class="card mb-3 border animate__animated animate__fadeInUp"
+    style="animation-duration: 0.5s"
+  >
     <validation-observer v-slot="{ invalid }">
       <div
         type="button"
@@ -97,7 +100,7 @@
 import { mapActions } from 'vuex';
 
 export default {
-  name: 'AppointmentEditModalBody',
+  name: 'AppointmentEdit',
   props: ['appointment'],
 
   data() {
@@ -107,7 +110,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['getAllAppointments']),
+    ...mapActions('appointments', ['getAllAppointments']),
 
     uploadAppointment(appointmentID) {
       const vm = this;

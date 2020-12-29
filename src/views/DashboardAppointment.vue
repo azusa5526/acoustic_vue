@@ -14,11 +14,11 @@
         <div class="card border-0">
           <div class="card-header bg-primary text-secondary">編輯列表</div>
           <div class="card-body p-0 pt-3" id="appointmentInfo">
-            <AppointmentEditModalBody
+            <AppointmentEdit
               v-for="item in tempAppointments"
               :appointment="item"
               :key="item.id"
-            ></AppointmentEditModalBody>
+            ></AppointmentEdit>
           </div>
         </div>
       </div>
@@ -27,14 +27,14 @@
 </template>
 
 <script>
-import AppointmentEditModalBody from '@/components/AppointmentEditModalBody';
+import AppointmentEdit from '@/components/AppointmentEdit';
 import CalenderText from '@/components/CalenderText';
 import { mapGetters } from 'vuex';
 
 export default {
   name: 'DashboardAppointment',
   components: {
-    AppointmentEditModalBody,
+    AppointmentEdit,
     CalenderText
   },
 
