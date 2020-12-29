@@ -1,6 +1,8 @@
 <template>
   <div>
-    <p :class="{ 'text-danger font-weight-bold': haveAppointmentToday }">{{ date.split('-').slice(2).join('') }}</p>
+    <p :class="{ 'text-danger font-weight-bold': haveAppointment }">
+      {{ date.split('-').slice(2).join('') }}
+    </p>
   </div>
 </template>
 
@@ -26,9 +28,9 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['allAppointments']),
-    haveAppointmentToday() {
-      return this.$store.getters.filterAppointmentResult(this.date);
+    ...mapGetters('appointments', ['allAppointments', 'filterAppointmentResult']),
+    haveAppointment() {
+      return this.filterAppointmentResult(this.date);
     }
   }
 };

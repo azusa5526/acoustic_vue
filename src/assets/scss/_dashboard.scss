@@ -80,6 +80,10 @@ $aside-hide-width: 3.5rem;
   }
 }
 
+.dashboard {
+  position: relative;
+}
+
 .dashboardNavbar {
   height: 50px;
 
@@ -92,10 +96,10 @@ $aside-hide-width: 3.5rem;
   margin-top: 50px;
 }
 
-.mobile-bg {
+.mobile-mask {
   background: #000;
   opacity: 0.2;
-  position: absolute;
+  position: fixed;
   z-index: 999;
   width: 100%;
   height: 100%;

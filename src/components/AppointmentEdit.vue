@@ -1,5 +1,8 @@
 <template>
-  <div class="card mb-3 border">
+  <div
+    class="card mb-3 border animate__animated animate__fadeInUp"
+    style="animation-duration: 0.5s"
+  >
     <validation-observer v-slot="{ invalid }">
       <div
         type="button"
@@ -20,7 +23,7 @@
             提交預約回覆
           </button>
         </div>
-        <div v-else>
+        <div v-if="appointment.isConfirmed !== 'unchecked'">
           <p class="text-info m-0">預約已回覆</p>
         </div>
       </div>
@@ -28,7 +31,7 @@
       <div
         :id="['demo' + appointment.id]"
         aria-labelledby="headingOne"
-        data-parent="#accordionExample"
+        data-parent="#appointmentInfo"
         class="collapse table mb-0"
       >
         <table class="w-100">
@@ -97,7 +100,7 @@
 import { mapActions } from 'vuex';
 
 export default {
-  name: 'AppointmentEditModalBody',
+  name: 'AppointmentEdit',
   props: ['appointment'],
 
   data() {
@@ -107,7 +110,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['getAllAppointments']),
+    ...mapActions('appointments', ['getAllAppointments']),
 
     uploadAppointment(appointmentID) {
       const vm = this;

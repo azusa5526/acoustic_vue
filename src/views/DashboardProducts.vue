@@ -1,6 +1,6 @@
 <template>
-  <div class="dashboardProducts mx-4 py-4">
-    <div class="d-flex flex-column flex-sm-row align-items-end flex-wrap bg-white mb-3 py-2 py-md-4 px-md-4">
+  <div class="dashboardProducts container-fluid">
+    <div class="d-flex flex-column flex-sm-row align-items-end flex-wrap bg-white mb-3 mb-lg-4">
       <div class="input-group mr-4 mb-3 mb-sm-0 flex-grow">
         <div class="dropdown mb-sm-0">
           <button
@@ -74,7 +74,7 @@
       </button>
     </div>
 
-    <div class="px-md-4">
+    <div class="">
       <table class="table-sm mb-3 test bg-white border w-100">
         <thead>
           <tr class="bg-white">
@@ -347,15 +347,15 @@ export default {
   },
 
   methods: {
-    ...mapActions(['getAllProducts']),
+    ...mapActions('products', ['getAllProducts']),
 
     changeCategoryTag() {
-      this.$store.commit('CATEGORYTAG', this.categoryTag);
+      this.$store.commit('products/CATEGORYTAG', this.categoryTag);
       this.filterProducts();
     },
 
     changeSearchTitle() {
-      this.$store.commit('TITLETAG', this.searchTitle);
+      this.$store.commit('products/TITLETAG', this.searchTitle);
       this.filterProducts();
     },
 
@@ -367,7 +367,7 @@ export default {
     },
 
     filterProducts() {
-      this.$store.dispatch('filterProducts');
+      this.$store.dispatch('products/filterProducts');
     },
 
     openProductModal(isNew, item) {
@@ -478,12 +478,12 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['allProducts', 'pagedProducts'])
+    ...mapGetters('products', ['allProducts', 'pagedProducts'])
   },
 
   created() {
     this.getAllProducts();
-    this.$store.dispatch('changePageSize', 12);
+    this.$store.dispatch('products/changePageSize', 12);
   },
 
   destroyed() {
