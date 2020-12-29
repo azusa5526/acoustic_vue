@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import createPersistedState from 'vuex-persistedstate';
 import dashboardLayout from './modules/dashboardLayout';
 import appointments from './modules/appointments';
 import products from './modules/products';
-import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex);
 
@@ -18,8 +18,8 @@ export default new Vuex.Store({
   plugins: [createPersistedState()],
 
   actions: {
-    updateLoading(context, status) {
-      context.commit('LOADING', status);
+    updateLoading({ commit }, status) {
+      commit('LOADING', status);
     }
   },
 
