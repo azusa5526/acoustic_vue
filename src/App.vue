@@ -3,8 +3,8 @@
     <loading
       :active.sync="isLoading"
       class="animate__animated"
-      :class="{ animate__fadeIn: isLoading === true, animate__fadeOut: isLoading === false}"
-      style="animation-duration: .2s;"
+      :class="{ animate__fadeIn: isLoading === true, animate__fadeOut: isLoading === false }"
+      style="animation-duration: 0.2s"
     >
       <div class="loadingio-spinner-double-ring-fpu8dnlv067">
         <div class="ldio-cbtwt12ndh6">

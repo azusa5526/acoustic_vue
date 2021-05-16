@@ -32,7 +32,7 @@
                 >
                   <option class="d-none">--- 請選擇 ---</option>
                   <option value="書架型" :SELECTED="product.category == '書架型'">
-                    書架型音響試聽
+                    書架型音響試聽書架型音響試聽書架型音響試聽書架型音響試聽
                   </option>
                   <option value="落地型" :SELECTED="product.category == '落地型'">
                     落地型音響試聽

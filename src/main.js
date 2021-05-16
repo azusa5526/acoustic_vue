@@ -49,7 +49,6 @@ new WOW({
 Vue.component('Loading', Loading);
 Vue.filter('currency', currencyFilter);
 Vue.filter('persentage', persentageFilter);
-axios.defaults.withCredentials = true;
 
 Object.keys(rules).forEach((rule) => {
   extend(rule, rules[rule]);
